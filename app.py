@@ -19,8 +19,8 @@ MARKET_END_TIME = QTime(15, 30, 0)
 class App(QMainWindow, UI):
     def __init__(self):
         super().__init__()
-        Handler()
         self.setupUi(self)
+        Handler()
         # self.setStyleSheet(THEME)
         
         self.curStatus = CurStatus(self)
