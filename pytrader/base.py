@@ -8,13 +8,14 @@ class CurStatus(QGroupBox):
         self._accounts_setting()
 
     def _accounts_setting(self):
+        print("golden bro" * 100)
         from kiwoom.method import GetLoginInfo, CommRqData
 
-        print("gg bro")
+        print("gg bro" * 100)
         accounts_num = GetLoginInfo("ACCOUNT_CNT")
-        print("accounts_num!")
+        print("accounts_num!" * 100)
         accounts = GetLoginInfo("ACCNO")
-        print("accounts!")
+        print("accounts!" * 100)
         account_list = accounts.split(";")[:accounts_num]
         print("accounts_list!")
         self.accounts.addItems(account_list)
