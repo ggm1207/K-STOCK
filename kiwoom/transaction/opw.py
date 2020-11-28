@@ -35,7 +35,7 @@ class WaitEvent:
         pass
 
 
-def opw00018(block, **kwargs):
+def opw00018(helper, **kwargs):
     """
     Args:
         dict: {
@@ -59,12 +59,12 @@ def opw00018(block, **kwargs):
 
     if kwargs["조회구분"] == 1:
         CommRqData("gunmo", "opw00018", "0", "1207")  # 요청
-        with WaitEvent(block):  # 대기
-            data.append(GetCommData("opw00018", "gunmo", 0, "총매입금액"))
-            data.append(GetCommData("opw00018", "gunmo", 0, "총평가금액"))
-            data.append(GetCommData("opw00018", "gunmo", 0, "총평가손익금액"))
-            data.append(GetCommData("opw00018", "gunmo", 0, "총수익률(%)"))
-            data.append(GetCommData("opw00018", "gunmo", 0, "추정예탁자산"))
+        with WaitEvent(helper.block):  # 대기
+            data.append(GetCommData(helper.trcode, helper.rqname, 0, "총매입금액"))
+            data.append(GetCommData(helper.trcode, helper.rqname, 0, "총평가금액"))
+            data.append(GetCommData(helper.trcode, helper.rqname, 0, "총평가손익금액"))
+            data.append(GetCommData(helper.trcode, helper.rqname, 0, "총수익률(%)"))
+            data.append(GetCommData(helper.trcode, helper.rqname, 0, "추정예탁자산"))
         return data
 
     if kwargs["조회구분"] == 2:

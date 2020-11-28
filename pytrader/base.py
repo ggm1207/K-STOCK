@@ -31,7 +31,7 @@ class CurStatus(QGroupBox):
 
         # 잔고 조회
         print("opw00018 실행")
-        data = opw00018(self.parent.block, **context)
+        data = opw00018(self.parent.helper, **context)
         print("opw00018 멈춤")
         table = self.parent.balanceTable
         item = QTableWidgetItem("0")

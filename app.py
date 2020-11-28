@@ -16,12 +16,19 @@ MARKET_START_TIME = QTime(9, 0, 0)
 MARKET_END_TIME = QTime(15, 30, 0)
 
 
+class Helper:
+    def __init__(self):
+        self.block = QEventLoop()
+        self.trcode = None
+        self.rqname = None
+
+
 class App(QMainWindow, UI):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         Handler()  # QWidget Init After QApplication
-        self.block = QEventLoop()
+        self.helper = Helper()
 
         # self.setStyleSheet(THEME)
         self.curStatus = CurStatus(self)
@@ -36,7 +43,9 @@ class App(QMainWindow, UI):
     ):
         """조회요청 응답을 받거나 조회데이터를 수신했을때 호출됩니다. 조회데이터는 이 이벤트내부에서 GetCommData()함수를 이용해서 얻어올 수 있습니다."""
         print("Receive!!")
-        self.block.exit()  # TODO: 비동기에서는...?
+        self.helper.trcode = sTrCode
+        self.helper.rqname = sRQName
+        self.helper.block.exit()  # TODO: 비동기에서는...?
 
     def _set_init_widgets(self):
         # 서버와의 연결을 확인하는 Timer
