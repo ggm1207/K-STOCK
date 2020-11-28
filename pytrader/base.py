@@ -1,15 +1,14 @@
-from PyQt5.QtWidgets import QGroupBox
 from PyQt5 import uic
+from PyQt5.QtWidgets import QGroupBox
 
-from kiwoom.method import GetLoginInfo, CommRqData
 from kiwoom.transaction.opw import OPW00018
+from kiwoom.method import GetLoginInfo, CommRqData
 
 
 class CurStatus(QGroupBox):
     def __init__(self, parent):
         super(QGroupBox, self).__init__(parent)
-
-        self._accounts_setting()
+        # self._accounts_setting()
 
     def _accounts_setting(self):
         accounts_num = GetLoginInfo("ACCOUNT_CNT")

@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QTime, QTimer
 
 from PyQt5 import uic
-from pytrader.base import Accounts, EventList
+from pytrader.base import CurStatus, EventList
 
 UIPATH = "./view/app.ui"
 THEME = "./view/white.css"
