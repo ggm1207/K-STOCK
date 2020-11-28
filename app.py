@@ -21,13 +21,13 @@ class App(QMainWindow, UI):
         super().__init__()
         self.setupUi(self)
         Handler()  # QWidget Init After QApplication
+        self.block = QEventLoop()
 
         # self.setStyleSheet(THEME)
         self.curStatus = CurStatus(self)
         self.eventList = EventList(self)
 
         self._set_init_widgets()
-        self.block = QEventLoop()
         # self.OnReceiveTrData.connect(self._on_receive_tr_data)
         # self.OnReceiveChejanData.connect()
 
