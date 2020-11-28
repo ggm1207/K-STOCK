@@ -12,6 +12,8 @@ class CurStatus(QGroupBox):
 
         accounts_num = GetLoginInfo("ACCOUNT_CNT")
         accounts = GetLoginInfo("ACCNO")
+        print(accounts_num)
+        print(accounts)
         account_list = accounts.split(";")[:accounts_num]
         self.accounts.addItems(account_list)
 
