@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QGroupBox
 class CurStatus(QGroupBox):
     def __init__(self, parent):
         super(QGroupBox, self).__init__(parent)
+        self.parent = parent
         self._accounts_setting()
 
     def _accounts_setting(self):
@@ -12,10 +13,8 @@ class CurStatus(QGroupBox):
 
         accounts_num = int(GetLoginInfo("ACCOUNT_CNT"))
         accounts = GetLoginInfo("ACCNO")
-        print(accounts_num)
-        print(accounts)
         account_list = accounts.split(";")[:accounts_num]
-        self.accounts.addItems(account_list)
+        self.parent.accounts.addItems(account_list)
 
     def _balance_setting(self):
         from kiwoom.transaction.opw import OPW00018
