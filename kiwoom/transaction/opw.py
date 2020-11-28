@@ -59,7 +59,7 @@ def opw00018(helper, **kwargs):
     data = list()
 
     if kwargs["조회구분"] == 1:
-        CommRqData("opw00018_req", "opw00018", "0", "1207")  # 요청
+        CommRqData("opw00018_req", "opw00018", 0, "1207")  # 요청
         with WaitEvent(helper.block):  # 대기
             print(helper.trcode, helper.rqname)
             data.append(GetCommData(helper.trcode, helper.rqname, 0, "총매입금액"))
