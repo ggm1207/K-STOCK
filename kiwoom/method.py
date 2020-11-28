@@ -1,7 +1,12 @@
+"""
+    키움 API Method를 모아놓은 모듈. 키움 Method명과 똑같이 camelCase를 사용해서 표기했다.
+Usage:
+    GetLoginInfo("ACCNO")
+"""
 from kiwoom.handler import Handler
 
 
-class CommRqData(Handler):
+def CommRqData(sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
     """Tran을 서버로 송신한다
     Args:
         BSTR sRQName - 사용자구분 명
@@ -15,9 +20,13 @@ class CommRqData(Handler):
         OP_ERR_RQ_STRING_FAIL – 요청전문 작성 실패
         OP_ERR_NONE – 정상처리
     """
-
-    def __call__(self, sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
-        return
+    Handler.kiwoom.dynamicCall(
+        "CommRqData(QString, QString, int, QString)",
+        sRQName,
+        sTrCode,
+        nPrevNext,
+        sScreenNo,
+    )
 
 
 def GetLoginInfo(tag: str):
@@ -46,7 +55,7 @@ def GetLoginInfo(tag: str):
     raise AttributeError("존재하지 않는 태그입니다!")
 
 
-class SetInputValue(Handler):
+def SetInputValue(sID: str, sValue: str):
     """Tran 입력 값을 서버통신 전에 입력한다.
     Args:
         sID – 아이템명
@@ -55,25 +64,21 @@ class SetInputValue(Handler):
         SetInputValue("종목코드", "000660");
         SetInputValue("계좌번호", "5015123401")
     """
-
-    def __call__(self, sID: str, sValue: str):
-        self.dynamicCall("SetInputValue(QString, QString)", sID, sValue)
+    Handler.kiwoom.dynamicCall("SetInputValue(QString, QString)", sID, sValue)
 
 
-class SetInputValues(Handler):
+def SetInputValues(sItems):
     """Dict를 입력받아 Key, Id를 SetInputValue를 수행한다.
     Args:
         sItems - (sId, sValue)의 형식을 가진 Dict
     E.G)
         SetInputValues({"종목코드": "000660", "계좌번호": "5015123401"})
     """
-
-    def __call__(self, sItems: dict):
-        for key, value in sItems.items():
-            SetInputValue(key, value)
+    for key, value in sItems.items():
+        SetInputValue(key, value)
 
 
-class GetCommData(Handler):
+def GetCommData():
     """수신 데이터를 반환한다, 조회 정보 요청.
     반드시 OnReceiveTRData()이벤트가 호출될때 그 안에서 사용해야 한다.
     Args:
@@ -86,9 +91,10 @@ class GetCommData(Handler):
     E.G)
         GetCommData("OPT10001", "주식기본정보", 0, "현재가")
     """
+    pass
 
 
-class GetCommDataEx(Handler):
+def GetCommDataEx():
     """차트 조회처럼 반복데이터가 많은 데이터를 한꺼번에 받아서 처리하고 싶을 때 사용한다.
     Args:
 

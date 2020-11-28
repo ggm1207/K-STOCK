@@ -32,5 +32,5 @@ class Handler(QAxWidget):
     kiwoom = None
 
     def __new__(cls):
+        """딱 한 번만 실행"""
         cls.kiwoom = Kiwoom()
-
