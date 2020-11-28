@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../../../다운로드/risk.png</normaloff>../../../../../다운로드/risk.png</iconset>
+    <normaloff>../../../../../../../../다운로드/risk.png</normaloff>../../../../../../../../다운로드/risk.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QGroupBox::title {
@@ -28,7 +28,7 @@ margin-left: 4px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGroupBox" name="groupBox_2">
+   <widget class="QGroupBox" name="curStatus">
     <property name="geometry">
      <rect>
       <x>1</x>
@@ -43,7 +43,7 @@ margin-left: 4px;
     <property name="title">
      <string> 잔고 및 보유종목 현황</string>
     </property>
-    <widget class="QTableWidget" name="tableWidget">
+    <widget class="QTableWidget" name="balanceTable">
      <property name="geometry">
       <rect>
        <x>4</x>
@@ -87,7 +87,7 @@ margin-left: 4px;
       </property>
      </column>
     </widget>
-    <widget class="QTableWidget" name="tableWidget_2">
+    <widget class="QTableWidget" name="stockTable">
      <property name="geometry">
       <rect>
        <x>4</x>
@@ -137,7 +137,7 @@ margin-left: 4px;
       </property>
      </column>
     </widget>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="realTime">
      <property name="geometry">
       <rect>
        <x>638</x>
@@ -150,7 +150,7 @@ margin-left: 4px;
       <string>실시간</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="check">
      <property name="geometry">
       <rect>
        <x>700</x>
@@ -163,8 +163,18 @@ margin-left: 4px;
       <string>조회</string>
      </property>
     </widget>
+    <widget class="QComboBox" name="accounts">
+     <property name="geometry">
+      <rect>
+       <x>132</x>
+       <y>0</y>
+       <width>151</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox_3">
+   <widget class="QGroupBox" name="eventList">
     <property name="geometry">
      <rect>
       <x>1</x>
@@ -176,7 +186,7 @@ margin-left: 4px;
     <property name="title">
      <string> 자동 선정 종목 리스트</string>
     </property>
-    <widget class="QTableWidget" name="tableWidget_3">
+    <widget class="QTableWidget" name="eventTable">
      <property name="geometry">
       <rect>
        <x>4</x>
@@ -217,8 +227,8 @@ margin-left: 4px;
      </column>
     </widget>
    </widget>
-   <zorder>groupBox_3</zorder>
-   <zorder>groupBox_2</zorder>
+   <zorder>eventList</zorder>
+   <zorder>curStatus</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
