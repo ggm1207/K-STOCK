@@ -18,13 +18,17 @@ MARKET_END_TIME = QTime(15, 30, 0)
 class App(QMainWindow, UI):
     def __init__(self):
         super().__init__()
+        print("here")
         self.setupUi(self)
         # self.setStyleSheet(THEME)
+        print("here")
         
         self.accounts = Accounts(self)
         self.eventList = EventList(self)
+        print("here")
 
         self._set_init_widgets()
+        print("here")
 
     def _set_init_widgets(self):
         # 서버와의 연결을 확인하는 Timer
