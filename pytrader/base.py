@@ -11,8 +11,11 @@ class CurStatus(QGroupBox):
         from kiwoom.method import GetLoginInfo, CommRqData
 
         accounts_num = GetLoginInfo("ACCOUNT_CNT")
+        print("accounts_num!")
         accounts = GetLoginInfo("ACCNO")
+        print("accounts!")
         account_list = accounts.split(";")[:accounts_num]
+        print("accounts_list!")
         self.accounts.addItems(account_list)
 
     def _balance_setting(self):
