@@ -29,6 +29,7 @@ class App(QMainWindow, UI):
         self.setupUi(self)
         Handler()  # QWidget Init After QApplication
         self.helper = Helper()
+        print("helper_id:", id(self.helper))
 
         # self.setStyleSheet(THEME)
         self.curStatus = CurStatus(self)
