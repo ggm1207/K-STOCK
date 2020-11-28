@@ -15,7 +15,9 @@ class Kiwoom(QAxWidget):
 
         print("before server check" * 100)
         # self.server = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
-        print("Kiwoom Open" * 100)
+        print("GGGG Open" * 100)
 
 class Handler(QAxWidget):
+    print("Handler Before")
     kiwoom = Kiwoom()
+    print("Handler After")
