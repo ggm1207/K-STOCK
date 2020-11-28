@@ -23,7 +23,7 @@ class App(QMainWindow, UI):
         # self.setStyleSheet(THEME)
         print("here")
         
-        self.accounts = Accounts(self)
+        self.accounts = CurStatus(self)
         self.eventList = EventList(self)
         print("here")
 
