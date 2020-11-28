@@ -15,6 +15,7 @@ UI = uic.loadUiType(UIPATH)[0]
 MARKET_START_TIME = QTime(9, 0, 0)
 MARKET_END_TIME = QTime(15, 30, 0)
 
+
 class App(QMainWindow, UI):
     def __init__(self):
         super().__init__()
