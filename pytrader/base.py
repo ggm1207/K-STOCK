@@ -14,7 +14,7 @@ class CurStatus(QGroupBox):
         accounts = GetLoginInfo("ACCNO")
         print(accounts_num)
         print(accounts)
-        account_list = accounts.split(";")[:accounts_num]
+        account_list = accounts.split(":")[:accounts_num]
         self.accounts.addItems(account_list)
 
     def _balance_setting(self):
