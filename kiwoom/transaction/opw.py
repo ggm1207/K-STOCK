@@ -25,10 +25,13 @@ from kiwoom.method import SetInputValue, SetInputValues, CommRqData, GetCommData
 class WaitEvent:
     """Context를 활용한 동기화"""
 
-    def __enter__(self, event):
-        event.exec_()
+    def __init__(self, event):
+        self._event = event
 
-    def __exit__(self):
+    def __enter__(self):
+        self._event.exec_()
+
+    def __exit__(self, ext_type, ex_value, ex_traceback):
         pass
 
 
