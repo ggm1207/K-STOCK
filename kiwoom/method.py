@@ -20,7 +20,7 @@ class CommRqData(Handler):
         return
 
 
-class GetLoginInfo(Handler):
+def GetLoginInfo(tag: str):
     """로그인한 사용자 정보를 반환한다
     Args:
         BSTR sTag : 사용자 정보 구분 TAG값 (비고)
@@ -34,18 +34,16 @@ class GetLoginInfo(Handler):
     Returns:
         TAG값에 따른 데이터 반환
     """
-
-    def __call__(self, tag: str):
-        if tag in [
-            "ACCOUNT_CNT",
-            "ACCNO",
-            "USER_ID",
-            "USER_NAME",
-            "KEY_BSECGB",
-            "FIREW_SECGB",
-        ]:
-            return self.kiwoom.dynamicCall("GetLoginInfo(QString)", tag)
-        raise AttributeError("존재하지 않는 태그입니다!")
+    if tag in [
+        "ACCOUNT_CNT",
+        "ACCNO",
+        "USER_ID",
+        "USER_NAME",
+        "KEY_BSECGB",
+        "FIREW_SECGB",
+    ]:
+        return Handler.kiwoom.dynamicCall("GetLoginInfo(QString)", tag)
+    raise AttributeError("존재하지 않는 태그입니다!")
 
 
 class SetInputValue(Handler):
