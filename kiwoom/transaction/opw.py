@@ -26,9 +26,11 @@ class WaitEvent:
     """Context를 활용한 동기화"""
 
     def __init__(self, event):
+        print("event setting")
         self._event = event
 
     def __enter__(self):
+        print("event setting")
         self._event.exec_()
 
     def __exit__(self, ext_type, ex_value, ex_traceback):
@@ -61,14 +63,16 @@ def opw00018(helper, **kwargs):
 
     if kwargs["조회구분"] == 1:
         CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
-        print("요청!")
-        with WaitEvent(helper.block):  # 대기
-            print(helper.trcode, helper.rqname)
-            data.append(GetCommData(helper.trcode, helper.rqname, 0, "총매입금액"))
-            data.append(GetCommData(helper.trcode, helper.rqname, 0, "총평가금액"))
-            data.append(GetCommData(helper.trcode, helper.rqname, 0, "총평가손익금액"))
-            data.append(GetCommData(helper.trcode, helper.rqname, 0, "총수익률(%)"))
-            data.append(GetCommData(helper.trcode, helper.rqname, 0, "추정예탁자산"))
+        print("요청!")  # 여기까지 실행됨
+        helper.block.exec_()
+
+        print(helper.trcode, helper.rqname)
+        data.append(GetCommData(helper.trcode, helper.rqname, 0, "총매입금액"))
+        data.append(GetCommData(helper.trcode, helper.rqname, 0, "총평가금액"))
+        data.append(GetCommData(helper.trcode, helper.rqname, 0, "총평가손익금액"))
+        data.append(GetCommData(helper.trcode, helper.rqname, 0, "총수익률(%)"))
+        data.append(GetCommData(helper.trcode, helper.rqname, 0, "추정예탁자산"))
+
         return data
 
     if kwargs["조회구분"] == 2:
