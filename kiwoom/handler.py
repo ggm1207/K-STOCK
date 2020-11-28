@@ -31,5 +31,6 @@ class Kiwoom(QAxWidget):
 class Handler(QAxWidget):
     kiwoom = None
 
-    def __init__(self):
-        self.kiwoom = Kiwoom()
+    def __new__(cls):
+        cls.kiwoom = Kiwoom()
+
