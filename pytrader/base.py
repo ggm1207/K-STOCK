@@ -11,6 +11,7 @@ class CurStatus(QGroupBox):
         super(QGroupBox, self).__init__(parent)
         self.parent = parent
         self._accounts_setting()
+        self._balance_setting()
 
     def _accounts_setting(self):
         accounts_num = int(GetLoginInfo("ACCOUNT_CNT"))
@@ -32,7 +33,9 @@ class CurStatus(QGroupBox):
         )
 
         # 잔고 조회
+        print("opw00018 실행")
         data = opw00018(self.parent.block, context)
+        print("opw00018 멈춤")
         table = self.parent.balanceTable
         item = QTableWidgetItem("0")
         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
