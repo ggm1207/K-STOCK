@@ -6,20 +6,14 @@ class Kiwoom(QAxWidget):
     server - 1: 모의서버, 나머지: 실서버
     """
     def __init__(self):
-        print("Kiwoom Open")
         super().__init__()
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
         self.OnEventConnect.connect(self._event_connect)
-        print("Kiwoom Giant")
         self.dynamicCall("CommConnect()")
-        print("Kiwoom HollyShit")
         self.login_event_loop = QEventLoop()
-        print("Kiwoom Helpme")
         self.login_event_loop.exec_()
 
-        print("before server check" * 100)
         self.server = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
-        print("GGGG Open" * 100)
 
     def _event_connect(self, err_code):
         if err_code == 0:
@@ -30,6 +24,4 @@ class Kiwoom(QAxWidget):
         self.login_event_loop.exit()
         
 class Handler(QAxWidget):
-    print("Handler Before")
     kiwoom = Kiwoom()
-    print("Handler After")
