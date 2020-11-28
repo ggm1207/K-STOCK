@@ -9,6 +9,7 @@ class Kiwoom(QAxWidget):
         print("Kiwoom Open")
         super().__init__()
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
+        self.OnEventConnect.connect(self._event_connect)
         print("Kiwoom Giant")
         self.dynamicCall("CommConnect()")
         print("Kiwoom HollyShit")
