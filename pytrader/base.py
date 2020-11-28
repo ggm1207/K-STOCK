@@ -26,10 +26,7 @@ class CurStatus(QGroupBox):
         password = "0000"  # TODO: 계좌별 비밀번호를 불러오도록 수정
         where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
         context = dict(
-            ("계좌번호", account),
-            ("비밀번호", password),
-            ("비밀번호입력매체구분", where),
-            ("조회구분", 1),  # 합산
+            {"계좌번호": account, "비밀번호": password, "비밀번호입력매체구분": where, "조회구분": 1}  # 합산
         )
 
         # 잔고 조회
