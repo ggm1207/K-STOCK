@@ -44,7 +44,7 @@ class GetLoginInfo(Handler):
             "KEY_BSECGB",
             "FIREW_SECGB",
         ]:
-            return self.kiwoom.dynamicCall(tag)
+            return self.kiwoom.dynamicCall("GetLoginInfo(QString)", tag)
         raise AttributeError("존재하지 않는 태그입니다!")
 
 

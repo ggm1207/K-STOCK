@@ -10,6 +10,7 @@ class CurStatus(QGroupBox):
     def _accounts_setting(self):
         from kiwoom.method import GetLoginInfo, CommRqData
 
+        print("gg bro")
         accounts_num = GetLoginInfo("ACCOUNT_CNT")
         print("accounts_num!")
         accounts = GetLoginInfo("ACCNO")
