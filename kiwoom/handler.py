@@ -17,9 +17,17 @@ class Kiwoom(QAxWidget):
         self.login_event_loop.exec_()
 
         print("before server check" * 100)
-        # self.server = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
+        self.server = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
         print("GGGG Open" * 100)
 
+    def _event_connect(self, err_code):
+        if err_code == 0:
+            print("connected")
+        else:
+            print("disconnected")
+
+        self.login_event_loop.exit()
+        
 class Handler(QAxWidget):
     print("Handler Before")
     kiwoom = Kiwoom()
