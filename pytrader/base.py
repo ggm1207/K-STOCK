@@ -10,11 +10,11 @@ class CurStatus(QGroupBox):
     def _accounts_setting(self):
         from kiwoom.method import GetLoginInfo, CommRqData
 
-        accounts_num = GetLoginInfo("ACCOUNT_CNT")
+        accounts_num = int(GetLoginInfo("ACCOUNT_CNT"))
         accounts = GetLoginInfo("ACCNO")
         print(accounts_num)
         print(accounts)
-        account_list = accounts.split(":")[:accounts_num]
+        account_list = accounts.split(";")[:accounts_num]
         self.accounts.addItems(account_list)
 
     def _balance_setting(self):
