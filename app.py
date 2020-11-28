@@ -1,9 +1,10 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtCore import QTime, QTimer
-
 from PyQt5 import uic
+from PyQt5.QtCore import QTime, QTimer
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
+from kiwoom.handler import Handler
 from pytrader.base import CurStatus, EventList
 
 UIPATH = "./view/app.ui"
@@ -18,6 +19,7 @@ MARKET_END_TIME = QTime(15, 30, 0)
 class App(QMainWindow, UI):
     def __init__(self):
         super().__init__()
+        Handler()
         self.setupUi(self)
         # self.setStyleSheet(THEME)
         
@@ -48,7 +50,6 @@ class App(QMainWindow, UI):
             # TODO: Kiwoom Model
 
         self.statusbar.showMessage(f"{status} | 현재시간: {cur_time}")
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
