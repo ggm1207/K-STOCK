@@ -36,6 +36,7 @@ class GetLoginInfo(Handler):
     """
 
     def __call__(self, tag: str):
+        print("GetLoginInfo Hurry")
         if tag in [
             "ACCOUNT_CNT",
             "ACCNO",
