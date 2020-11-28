@@ -13,9 +13,9 @@ class Kiwoom(QAxWidget):
         self.login_event_loop = QEventLoop()
         self.login_event_loop.exec_()
 
-        print("before server check")
-        self.server = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
-        print("Kiwoom Open")
+        print("before server check" * 100)
+        # self.server = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
+        print("Kiwoom Open" * 100)
 
 class Handler(QAxWidget):
     kiwoom = Kiwoom()
