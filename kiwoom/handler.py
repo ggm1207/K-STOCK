@@ -6,6 +6,7 @@ class Kiwoom(QAxWidget):
     server - 1: 모의서버, 나머지: 실서버
     """
     def __init__(self):
+        super().__init__()
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
         self.dynamicCall("CommConnect()")
         self.login_event_loop = QEventLoop()
