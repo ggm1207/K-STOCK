@@ -9,8 +9,11 @@ class Kiwoom(QAxWidget):
         print("Kiwoom Open")
         super().__init__()
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
+        print("Kiwoom Giant")
         self.dynamicCall("CommConnect()")
+        print("Kiwoom HollyShit")
         self.login_event_loop = QEventLoop()
+        print("Kiwoom Helpme")
         self.login_event_loop.exec_()
 
         print("before server check" * 100)
