@@ -27,6 +27,7 @@ def CommRqData(sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
         nPrevNext,
         sScreenNo,
     )
+    return ret
 
 
 def GetLoginInfo(tag: str):
@@ -91,13 +92,15 @@ def GetCommData(trCode, rName, nIndex, itemName):
     E.G)
         GetCommData("OPT10001", "주식기본정보", 0, "현재가")
     """
-    return Handler.kiwoom.dynamicCall(
+    ret = Handler.kiwoom.dynamicCall(
         "GetCommData(QString, QString, int, QString)",
         trCode,
         rName,
         nIndex,
         itemName,
     )
+    print("ret: ", ret)
+    return ret.strip()
 
 
 def GetCommDataEx():
