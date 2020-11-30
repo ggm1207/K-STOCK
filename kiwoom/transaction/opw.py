@@ -9,7 +9,12 @@
 """
 
 from kiwoom.handler import Handler
-from kiwoom.method import SetInputValue, SetInputValues, CommRqData, GetCommData
+from kiwoom.method import (
+    SetInputValue,
+    SetInputValues,
+    CommRqData,
+    GetCommData,
+)
 
 # Transaction 순서
 # 1. SetInputValue의 순서 (Set)
@@ -61,14 +66,14 @@ def opw00018(helper, **kwargs):
 
     if kwargs["조회구분"] == 1:
         CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
-        # helper.block.exec_()  # 이 코드가 없어도 실행이 안됨
+        # helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
 
-        print(helper.trcode, helper.rqname)
-        data.append(GetCommData(helper.trcode, helper.rqname, 0, "총매입금액"))
-        data.append(GetCommData(helper.trcode, helper.rqname, 0, "총평가금액"))
-        data.append(GetCommData(helper.trcode, helper.rqname, 0, "총평가손익금액"))
-        data.append(GetCommData(helper.trcode, helper.rqname, 0, "총수익률(%)"))
-        data.append(GetCommData(helper.trcode, helper.rqname, 0, "추정예탁자산"))
+        print(helper.trcode, helper.rcname)
+        data.append(GetCommData(helper.trcode, helper.rcname, 0, "총매입금액"))
+        data.append(GetCommData(helper.trcode, helper.rcname, 0, "총평가금액"))
+        data.append(GetCommData(helper.trcode, helper.rcname, 0, "총평가손익금액"))
+        data.append(GetCommData(helper.trcode, helper.rcname, 0, "총수익률(%)"))
+        data.append(GetCommData(helper.trcode, helper.rcname, 0, "추정예탁자산"))
 
         return data
 

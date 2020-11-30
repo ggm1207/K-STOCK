@@ -20,16 +20,18 @@ class Helper:
     def __init__(self):
         self.block = QEventLoop()
         self.trcode = None
-        self.rqname = None
+        self.rcname = None
 
 
 class App(QMainWindow, UI):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        Handler()  # QWidget Init After QApplication
+        self.handler = Handler()  # QWidget Init After QApplication
         self.helper = Helper()
-        print("helper_id:", id(self.helper))
+
+        self._event_connect()
+        self.handler.kiwoom.init(self.helper.block)
 
         # self.setStyleSheet(THEME)
         self.curStatus = CurStatus(self)
@@ -39,13 +41,27 @@ class App(QMainWindow, UI):
         self.OnReceiveTrData.connect(self._on_receive_tr_data)
         # self.OnReceiveChejanData.connect()
 
+    def _event_connect(self):
+        self.handler.kiwoom.OnEventConnect.connect(self._on_event_connect)
+        self.handler.kiwoom.OnReceiveTrData.connect(self._on_receive_tr_data)
+
+    def _on_event_connect(self, err_code):
+        msg = "connected"
+        if err_code != 0:
+            msg = "disconnected"
+
+        print(msg)
+        self.helper.block.exit()
+
     def _on_receive_tr_data(
         self, sScrNo, sRQName, sTrCode, sRecordName, sPrevNext, *args, **kwargs
     ):
-        """조회요청 응답을 받거나 조회데이터를 수신했을때 호출됩니다. 조회데이터는 이 이벤트내부에서 GetCommData()함수를 이용해서 얻어올 수 있습니다."""
+        """조회요청 응답을 받거나 조회데이터를 수신했을때 호출됩니다.
+        조회데이터는 이 이벤트내부에서 GetCommData()함수를 이용해서
+        얻어올 수 있습니다."""
         print("Receive!!")
         self.helper.trcode = sTrCode
-        self.helper.rqname = sRecordName
+        self.helper.rcname = sRecordName
         self.helper.block.exit()  # TODO: 비동기에서는...?
 
     def _set_init_widgets(self):
@@ -61,11 +77,14 @@ class App(QMainWindow, UI):
         cur_time = Q_CURTIME.toString("hh:mm:ss")
 
         if Q_CURTIME < MARKET_START_TIME:
-            status = "장 시작 전입니다! \U0001F928"  # faced with raised eyebrow: color
+            # faced with raised eyebrow: color
+            status = "장 시작 전입니다! \U0001F928"
         elif Q_CURTIME > MARKET_END_TIME:
-            status = "장 마감... \U0001F644"  # face with rolling eyes: color
+            # face with rolling eyes: color
+            status = "장 마감... \U0001F644"
         else:
-            status = "연결 완료! \U0001F929"  # star-struck: color
+            # star-struck: color
+            status = "연결 완료! \U0001F929"
 
             # TODO: Kiwoom Model
 
