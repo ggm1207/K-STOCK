@@ -22,7 +22,7 @@ class CurStatus(QGroupBox):
     def _balance_setting(self):
         """OPW00018, OPW"""
         account = self.parent.accounts.currentText()
-        password = "340978"  # TODO: 계좌별 비밀번호를 불러오도록 수정
+        password = "0000"  # TODO: 계좌별 비밀번호를 불러오도록 수정
         where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
         context = dict(
             {
