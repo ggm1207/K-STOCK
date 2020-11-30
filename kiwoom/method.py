@@ -25,7 +25,7 @@ def CommRqData(sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
         sRQName,
         sTrCode,
         nPrevNext,
-        sScreenNo
+        sScreenNo,
     )
 
 
@@ -78,7 +78,7 @@ def SetInputValues(sItems):
         SetInputValue(key, value)
 
 
-def GetCommData():
+def GetCommData(trCode, rName, nIndex, itemName):
     """수신 데이터를 반환한다, 조회 정보 요청.
     반드시 OnReceiveTRData()이벤트가 호출될때 그 안에서 사용해야 한다.
     Args:
@@ -87,11 +87,13 @@ def GetCommData():
         nIndex – TR 반복부
         strItemName – TR에서 얻어오려는 출력항목 이름
     Returns:
-        OnReceiveTRData에서 처리된다.
+        수신 데이터를 반환한다.
     E.G)
         GetCommData("OPT10001", "주식기본정보", 0, "현재가")
     """
-    pass
+    return Handler.kiwoom.dynamicCall(
+        "GetCommData(QString, QString, int, QString)", trCode, rName, nIndex, itemName
+    )
 
 
 def GetCommDataEx():
