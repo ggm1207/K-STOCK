@@ -11,11 +11,8 @@ class Kiwoom(QAxWidget):
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
 
     def init(self, block):
-        self.OnEventConnect.connect(self._event_connect)
         self.dynamicCall("CommConnect()")
-
         block.exec_()
-
         self.server = self.dynamicCall(
             "KOA_Functions(QString, QString)", "GetServerGubun", ""
         )
