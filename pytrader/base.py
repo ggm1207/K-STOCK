@@ -37,7 +37,7 @@ class CurStatus(QGroupBox):
         table.setItem(0, 0, item)
 
         for i in range(1, 6):
-            item = QTableWidgetItem(data[i])
+            item = QTableWidgetItem(data[i-1])
             item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
             table.setItem(0, i, item)
 
