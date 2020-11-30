@@ -96,4 +96,4 @@ def opw00001(helper, **kwargs):
     if kwargs["조회구분"] == 3:  # 추정조회
         CommRqData("opw00001_req", "opw00001", 0, "2001")
         helper.block.exec_()
-        return GetCommData(helper.trcode, helper.rcname, 0, "d+2추정예수금")
+        return GetCommData("opw00001", "opw00001_req", 0, "d+2추정예수금")
