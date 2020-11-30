@@ -64,7 +64,7 @@ class App(QMainWindow, UI):
         print("args:", args)  # not used
         print("kwargs:", kwargs)  # No Return
 
-        data = opw00018_receive()
+        data = opw00018_receive()  # 시박!! 여기 안에서만... 무조건!
         print(data)
 
         self.helper.block.exit()  # TODO: 비동기에서는...?

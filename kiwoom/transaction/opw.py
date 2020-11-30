@@ -59,10 +59,16 @@ def opw00018(helper, **kwargs):
     """
     SetInputValues(kwargs)  # 값 설정
 
+
     if kwargs["조회구분"] == 1:
         CommRqData("계좌평가잔고내역", "opw00018", 0, "2000")  # 요청
-        helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
 
+    kwargs["조회구분"] = 3
+    SetInputValues(kwargs)
+
+    CommRqData("예수금상세현황요청", "opw00001", 0, "2001")
+
+    helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
     # if kwargs["조회구분"] == 2:
 
 
@@ -79,7 +85,7 @@ def opw00018_receive():
 
 
 def opw00001(helper, **kwargs):
-    """계좌평가잔고내역요청
+    """예수금상세현황요청
     Args:
         dict: {
             계좌번호: str
