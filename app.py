@@ -30,9 +30,8 @@ class App(QMainWindow, UI):
         Handler()  # QWidget Init After QApplication
         self._event_connect()
 
-        Handler.kiwoom.init(self.helper.block)
-
         self.helper = Helper()
+        Handler.kiwoom.init(self.helper.block)
 
         # self.setStyleSheet(THEME)
         self.curStatus = CurStatus(self)
