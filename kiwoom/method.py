@@ -25,9 +25,8 @@ def CommRqData(sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
         sRQName,
         sTrCode,
         nPrevNext,
-        sScreenNo
+        sScreenNo,
     )
-    print(ret)
 
 
 def GetLoginInfo(tag: str):
@@ -50,7 +49,7 @@ def GetLoginInfo(tag: str):
         "USER_ID",
         "USER_NAME",
         "KEY_BSECGB",
-        "FIREW_SECGB"
+        "FIREW_SECGB",
     ]:
         return Handler.kiwoom.dynamicCall("GetLoginInfo(QString)", tag)
     raise AttributeError("존재하지 않는 태그입니다!")
@@ -97,7 +96,7 @@ def GetCommData(trCode, rName, nIndex, itemName):
         trCode,
         rName,
         nIndex,
-        itemName
+        itemName,
     )
 
 
