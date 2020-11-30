@@ -25,7 +25,7 @@ def CommRqData(sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
         sRQName,
         sTrCode,
         nPrevNext,
-        sScreenNo,
+        sScreenNo
     )
 
 
