@@ -61,14 +61,14 @@ def opw00018(helper, **kwargs):
     data = list()
 
     if kwargs["조회구분"] == 1:
-        CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
+        CommRqData("계좌평가잔고내역", "opw00018", 0, "2000")  # 요청
         helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
 
-        data.append(GetCommData("opw00018", "opw00018_req", 0, "총매입금액"))
-        data.append(GetCommData("opw00018", "opw00018_req", 0, "총평가금액"))
-        data.append(GetCommData("opw00018", "opw00018_req", 0, "총평가손익금액"))
-        data.append(GetCommData("opw00018", "opw00018_req", 0, "총수익률(%)"))
-        data.append(GetCommData("opw00018", "opw00018_req", 0, "추정예탁자산"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총매입금액"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가금액"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가손익금액"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총수익률(%)"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "추정예탁자산"))
 
         return data
 
@@ -94,6 +94,6 @@ def opw00001(helper, **kwargs):
     SetInputValues(kwargs)
 
     if kwargs["조회구분"] == 3:  # 추정조회
-        CommRqData("opw00001_req", "opw00001", 0, "2001")
+        CommRqData("예수금상세현황요청", "opw00001", 0, "2001")
         helper.block.exec_()
-        return GetCommData("opw00001", "opw00001_req", 0, "d+2추정예수금")
+        return GetCommData("opw00001", "예수금상세현황요청", 0, "d+2추정예수금")
