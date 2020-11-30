@@ -10,7 +10,12 @@
         docs참조해서 작성하면 됨.
 """
 
-from kiwoom.method import SetInputValues, CommRqData, GetCommData
+from kiwoom.method import (
+    SetInputValue,
+    SetInputValues,
+    CommRqData,
+    GetCommData,
+)
 
 # Transaction 순서
 # 1. SetInputValue의 순서 (Set)
@@ -62,6 +67,7 @@ def opw00018(helper, **kwargs):
 
     if kwargs["조회구분"] == 1:
         CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
+        SetInputValue("조회구분", "3")
         CommRqData("opw00001_req", "opw00001", 0, "2001")  # 요청
         helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
 
