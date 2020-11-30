@@ -84,7 +84,7 @@ def opw00018(helper, **kwargs):
     print("너 코드 이상하게 작성함.")
 
 
-class OPW00001(Handler):
+def opw00001(Handler):
     """계좌평가잔고내역요청
     Args:
         account

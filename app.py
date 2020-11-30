@@ -27,23 +27,21 @@ class App(QMainWindow, UI):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.handler = Handler()  # QWidget Init After QApplication
+        Handler()  # QWidget Init After QApplication
         self.helper = Helper()
 
         self._event_connect()
-        self.handler.kiwoom.init(self.helper.block)
+        Handler.kiwoom.init(self.helper.block)
 
         # self.setStyleSheet(THEME)
         self.curStatus = CurStatus(self)
         self.eventList = EventList(self)
 
         self._set_init_widgets()
-        self.OnReceiveTrData.connect(self._on_receive_tr_data)
-        # self.OnReceiveChejanData.connect()
 
     def _event_connect(self):
-        self.handler.kiwoom.OnEventConnect.connect(self._on_event_connect)
-        self.handler.kiwoom.OnReceiveTrData.connect(self._on_receive_tr_data)
+        Handler.kiwoom.OnEventConnect.connect(self._on_event_connect)
+        Handler.kiwoom.OnReceiveTrData.connect(self._on_receive_tr_data)
 
     def _on_event_connect(self, err_code):
         msg = "connected"
