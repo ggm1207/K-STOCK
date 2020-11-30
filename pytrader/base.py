@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 
 from kiwoom.transaction.opw import opw00018, opw00001
-from kiwoom.method import GetLoginInfo, CommRqData
+from kiwoom.method import GetLoginInfo
 
 
 class CurStatus(QGroupBox):
@@ -26,7 +26,12 @@ class CurStatus(QGroupBox):
         password = "340978"  # TODO: 계좌별 비밀번호를 불러오도록 수정
         where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
         context = dict(
-            {"계좌번호": account, "비밀번호": password, "비밀번호입력매체구분": where, "조회구분": 1}  # 합산
+            {
+                "계좌번호": account,
+                "비밀번호": password,
+                "비밀번호입력매체구분": where,
+                "조회구분": 1,
+            }  # 합산
         )
 
         # 잔고 조회
@@ -40,15 +45,16 @@ class CurStatus(QGroupBox):
         # d+2추정예수금
         context["조회구분"] = 3
         d2_deposit = opw00001(self.parent.helper, **context)
-       
+
         # 값 집어넣기
         data.insert(0, d2_deposit)
 
         for i in range(6):
+            print(f"data{i}:", data[i], end=" ")
             item = QTableWidgetItem(data[i])
             item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
             table.setItem(0, i, item)
-        
+
     def _stock_setting(self):
         """ 아직 방법 생각 중.. """
         pass
