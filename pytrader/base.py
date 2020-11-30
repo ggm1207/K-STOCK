@@ -49,8 +49,8 @@ class CurStatus(QGroupBox):
             item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
             table.setItem(0, i, item)
         
-
     def _stock_setting(self):
+        """ 아직 방법 생각 중.. """
         pass
 
 
