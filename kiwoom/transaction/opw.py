@@ -1,5 +1,7 @@
 """
     OPW로 시작하는 TR모음, Docs와 상관없이 소문자로 구현
+    필요한 값들만 가져오므로 값이 없을 경우
+    KOA Studio를 통해 더 알아봐야 한다.
     E.G)
         opw00018 -> opw00018
         OPW00017 -> opw00017
@@ -9,10 +11,9 @@
 """
 
 from kiwoom.method import (
-    SetInputValue,
     SetInputValues,
     CommRqData,
-    GetCommData,
+    GetCommData
 )
 
 # Transaction 순서
@@ -25,16 +26,16 @@ from kiwoom.method import (
 # def receive_tr_data(cls, *args):
 # raise NotImplementedError
 
+# 우선 동기로 구현, 나중에 비동기로 수정
+
 
 class WaitEvent:
     """Context를 활용한 동기화"""
 
     def __init__(self, event):
-        print("event setting")
         self._event = event
 
     def __enter__(self):
-        print("event setting")
         self._event.exec_()
 
     def __exit__(self, ext_type, ex_value, ex_traceback):
@@ -67,7 +68,6 @@ def opw00018(helper, **kwargs):
         CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
         helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
 
-        print(helper.trcode, helper.rcname)
         data.append(GetCommData(helper.trcode, helper.rcname, 0, "총매입금액"))
         data.append(GetCommData(helper.trcode, helper.rcname, 0, "총평가금액"))
         data.append(GetCommData(helper.trcode, helper.rcname, 0, "총평가손익금액"))
@@ -77,19 +77,27 @@ def opw00018(helper, **kwargs):
         return data
 
     if kwargs["조회구분"] == 2:
-        print("조회구분 2!!!")
         return data
 
-    print("너 코드 이상하게 작성함.")
 
-
-def opw00001(Handler):
+def opw00001(helper, **kwargs):
     """계좌평가잔고내역요청
     Args:
-        account
-
+        dict: {
+            계좌번호: str
+            비밀번호: str
+            비밀번호입력매체구분: str
+            조회구분: str, 3: 추정조회, 2: 일반조회
+        }
+    Returns:
+        IF "조회구분" == 3:
+            Return d2_deposit
+        ELIF "조회구분" == 2:
+        ...
     """
+    SetInputValues(kwargs)
 
-    pass
-
-    # def __call__(self):
+    if kwargs["조회구분"] == 3:  # 추정조회
+        CommRqData("opw00001_req", "opw00001", 0, "2001")
+        helper.block().exec_()
+        return GetCommData(helper.trcode, helper.rcname, 0, "d+2추정예수금")

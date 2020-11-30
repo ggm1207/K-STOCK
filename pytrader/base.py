@@ -2,7 +2,7 @@ from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 
-from kiwoom.transaction.opw import opw00018
+from kiwoom.transaction.opw import opw00018, opw00001
 from kiwoom.method import GetLoginInfo, CommRqData
 
 
@@ -32,18 +32,23 @@ class CurStatus(QGroupBox):
         # 잔고 조회
         data = opw00018(self.parent.helper, **context)
         table = self.parent.balanceTable
-        item = QTableWidgetItem("0")
-        item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
-        table.setItem(0, 0, item)
-
-        for i in range(1, 6):
-            item = QTableWidgetItem(data[i-1])
-            item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
-            table.setItem(0, i, item)
 
         # 종목 조회
         # context["조회구분"] = 2  # 개별
         # data = OPW00018(context)
+
+        # d+2추정예수금
+        context["조회구분"] = 3
+        d2_deposit = opw00001(self.parent.helper, **context)
+       
+        # 값 집어넣기
+        data.insert(0, d2_deposit)
+
+        for i in range(6):
+            item = QTableWidgetItem(data[i])
+            item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+            table.setItem(0, i, item)
+        
 
     def _stock_setting(self):
         pass
