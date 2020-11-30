@@ -30,9 +30,7 @@ class CurStatus(QGroupBox):
         )
 
         # 잔고 조회
-        print("opw00018 실행")
         data = opw00018(self.parent.helper, **context)
-        print("opw00018 멈춤")
         table = self.parent.balanceTable
         item = QTableWidgetItem("0")
         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
@@ -41,7 +39,7 @@ class CurStatus(QGroupBox):
         for i in range(1, 6):
             item = QTableWidgetItem(data[i])
             item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
-            table.setItem(0, i, data[i])
+            table.setItem(0, i, item)
 
         # 종목 조회
         # context["조회구분"] = 2  # 개별
