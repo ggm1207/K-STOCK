@@ -27,6 +27,7 @@ def CommRqData(sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
         nPrevNext,
         sScreenNo
     )
+    print("요청 완료!")
 
 
 def GetLoginInfo(tag: str):

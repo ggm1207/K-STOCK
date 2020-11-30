@@ -61,6 +61,7 @@ def opw00018(helper, **kwargs):
 
     if kwargs["조회구분"] == 1:
         CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
+        print("요청!")
         helper.block.exec_()  # 이 코드가 없어도 실행이 안됨
 
         print(helper.trcode, helper.rqname)
@@ -73,7 +74,10 @@ def opw00018(helper, **kwargs):
         return data
 
     if kwargs["조회구분"] == 2:
+        print("조회구분 2!!!")
         return data
+
+    print("너 코드 이상하게 작성함.")
 
 
 class OPW00001(Handler):
