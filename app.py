@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from kiwoom.handler import Handler
 from pytrader.base import CurStatus, EventList
 
+from kiwoom.transaction.opw import opw00018_receive
+
 UIPATH = "./view/app.ui"
 THEME = "./view/white.css"
 ONE_SECOND = 1000
@@ -62,8 +64,9 @@ class App(QMainWindow, UI):
         print("args:", args)  # not used
         print("kwargs:", kwargs)  # No Return
 
-        self.helper.trcode = sTrCode
-        self.helper.rcname = sRecordName
+        data = opw00018_receive()
+        print(data)
+
         self.helper.block.exit()  # TODO: 비동기에서는...?
 
     def _set_init_widgets(self):
