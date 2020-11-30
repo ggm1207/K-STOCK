@@ -57,8 +57,9 @@ class App(QMainWindow, UI):
         """조회요청 응답을 받거나 조회데이터를 수신했을때 호출됩니다.
         조회데이터는 이 이벤트내부에서 GetCommData()함수를 이용해서
         얻어올 수 있습니다."""
-
-        print("Helper, trcode: {} rcname: {}".format(sTrCode, sRecordName))
+        print(sScrNo, sRQName, sTrCode, sRecordName, sPrevNext)
+        print("args:", args)
+        print("kwargs:", kwargs)
 
         self.helper.trcode = sTrCode
         self.helper.rcname = sRecordName
