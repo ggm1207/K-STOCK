@@ -20,14 +20,14 @@ def CommRqData(sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
         OP_ERR_RQ_STRING_FAIL – 요청전문 작성 실패
         OP_ERR_NONE – 정상처리
     """
-    Handler.kiwoom.dynamicCall(
+    ret = Handler.kiwoom.dynamicCall(
         "CommRqData(QString, QString, int, QString)",
         sRQName,
         sTrCode,
         nPrevNext,
         sScreenNo
     )
-    print("요청 완료!")
+    print(ret)
 
 
 def GetLoginInfo(tag: str):

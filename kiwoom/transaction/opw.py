@@ -61,8 +61,7 @@ def opw00018(helper, **kwargs):
 
     if kwargs["조회구분"] == 1:
         CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
-        print("요청!")
-        helper.block.exec_()  # 이 코드가 없어도 실행이 안됨
+        # helper.block.exec_()  # 이 코드가 없어도 실행이 안됨
 
         print(helper.trcode, helper.rqname)
         data.append(GetCommData(helper.trcode, helper.rqname, 0, "총매입금액"))
