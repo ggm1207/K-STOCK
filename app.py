@@ -58,8 +58,9 @@ class App(QMainWindow, UI):
         조회데이터는 이 이벤트내부에서 GetCommData()함수를 이용해서
         얻어올 수 있습니다."""
         print(sScrNo, sRQName, sTrCode, sRecordName, sPrevNext)
-        print("args:", args)
-        print("kwargs:", kwargs)
+        # 2000, opw00018_req, ... ,
+        print("args:", args)  # not used
+        print("kwargs:", kwargs)  # No Return
 
         self.helper.trcode = sTrCode
         self.helper.rcname = sRecordName
