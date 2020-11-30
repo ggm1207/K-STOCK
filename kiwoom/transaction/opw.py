@@ -10,12 +10,7 @@
         docs참조해서 작성하면 됨.
 """
 
-from kiwoom.method import (
-    SetInputValue,
-    SetInputValues,
-    CommRqData,
-    GetCommData,
-)
+from kiwoom.method import SetInputValues, CommRqData, GetCommData
 
 # Transaction 순서
 # 1. SetInputValue의 순서 (Set)
@@ -29,7 +24,6 @@ from kiwoom.method import (
 
 # 우선 동기로 구현, 나중에 비동기로 수정
 
-# 레코드명 삽입: 
 
 class WaitEvent:
     """Context를 활용한 동기화"""
@@ -68,16 +62,13 @@ def opw00018(helper, **kwargs):
 
     if kwargs["조회구분"] == 1:
         CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
-        SetInputValue("조회구분", "3")
-        CommRqData("opw00001_req", "opw00001", 0, "2001")  # 요청
         helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
 
-        data.append(GetCommData("opw00001", "", 0, "d+2추정예수금"))
-        data.append(GetCommData("opw00018", "", 0, "총매입금액"))
-        data.append(GetCommData("opw00018", "", 0, "총평가금액"))
-        data.append(GetCommData("opw00018", "", 0, "총평가손익금액"))
-        data.append(GetCommData("opw00018", "", 0, "총수익률(%)"))
-        data.append(GetCommData("opw00018", "", 0, "추정예탁자산"))
+        data.append(GetCommData("opw00018", "opw00018_req", 0, "총매입금액"))
+        data.append(GetCommData("opw00018", "opw00018_req", 0, "총평가금액"))
+        data.append(GetCommData("opw00018", "opw00018_req", 0, "총평가손익금액"))
+        data.append(GetCommData("opw00018", "opw00018_req", 0, "총수익률(%)"))
+        data.append(GetCommData("opw00018", "opw00018_req", 0, "추정예탁자산"))
 
         return data
 

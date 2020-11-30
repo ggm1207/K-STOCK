@@ -41,14 +41,12 @@ class CurStatus(QGroupBox):
         # context["조회구분"] = 2  # 개별
         # data = OPW00018(context)
 
-        print("here!")
         # d+2추정예수금
-        # context["조회구분"] = 3
-        # d2_deposit = opw00001(self.parent.helper, **context)
+        context["조회구분"] = 3
+        d2_deposit = opw00001(self.parent.helper, **context)
 
         # 값 집어넣기
-        print("here!")
-        # data.insert(0, d2_deposit)
+        data.insert(0, d2_deposit)
 
         for i in range(6):
             print(f"data {i}:", data[i], end=" ")
