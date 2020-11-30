@@ -8,7 +8,6 @@
         docs참조해서 작성하면 됨.
 """
 
-from kiwoom.handler import Handler
 from kiwoom.method import (
     SetInputValue,
     SetInputValues,
@@ -66,7 +65,7 @@ def opw00018(helper, **kwargs):
 
     if kwargs["조회구분"] == 1:
         CommRqData("opw00018_req", "opw00018", 0, "2000")  # 요청
-        # helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
+        helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
 
         print(helper.trcode, helper.rcname)
         data.append(GetCommData(helper.trcode, helper.rcname, 0, "총매입금액"))
