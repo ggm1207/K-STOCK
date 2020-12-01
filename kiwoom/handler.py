@@ -3,8 +3,6 @@ from collections import defaultdict
 from PyQt5.QtCore import QEventLoop
 from PyQt5.QAxContainer import QAxWidget
 
-from kiwoom.transaction.opw import Base
-
 
 class Kiwoom(QAxWidget):
     """Kiwoom API
@@ -43,6 +41,8 @@ class Handler(QAxWidget):
 
     def __new__(cls):
         """딱 한 번만 실행"""
+        from kiwoom.transaction.opw import Base
+
         cls.kiwoom = Kiwoom()
         for c in Base.__subclasses__():
             cls.tr[c.__name____] = c
