@@ -40,9 +40,10 @@ class TR:
     @classmethod
     def get(cls):
         temp = copy(Handler.db[cls.trcode])
-        print('temp:', temp)
+        print(Handler.db)
+        print("temp:", temp)
         Handler.db[cls.trcode] = []  # flush
-        print('temp flush:', temp)
+        print("temp flush:", temp)
         return temp
 
 
