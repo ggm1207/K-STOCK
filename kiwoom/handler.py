@@ -41,10 +41,10 @@ class Handler(QAxWidget):
 
     def __new__(cls):
         """딱 한 번만 실행"""
-        from kiwoom.transaction.opw import Base
+        from kiwoom.transaction.opw import TR
 
         cls.kiwoom = Kiwoom()
-        for c in Base.__subclasses__():
+        for c in TR.__subclasses__():
             cls.tr[c.__name__] = c
 
     @classmethod

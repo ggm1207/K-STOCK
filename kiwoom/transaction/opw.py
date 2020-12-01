@@ -25,12 +25,12 @@ from kiwoom.method import SetInputValues, CommRqData, GetCommData
 # 우선 동기로 구현, 나중에 비동기로 수정
 
 
-class Base:
+class TR:
     trcode: str = None
     rcname: str = None
     window: str = None
 
-    @classmethod
+    @staticmethod
     def run(cls, **kwargs):
         SetInputValues(kwargs)
         CommRqData(cls.rcname, cls.trcode, 0, cls.window)
@@ -42,7 +42,7 @@ class Base:
         return temp
 
 
-class OPW00018(Base):
+class OPW00018(TR):
     trcode: str = "opw00018"
     rcname: str = "계좌평가잔고내역"
     window: str = "2000"
@@ -58,7 +58,7 @@ class OPW00018(Base):
         return data
 
 
-class OPW00001(Base):
+class OPW00001(TR):
     trcode: str = "opw00001"
     rcname: str = "예수금상세현황요청"
     window: str = "2001"
