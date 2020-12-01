@@ -58,4 +58,5 @@ class Handler(QAxWidget):
     def execute(cls, trcode: str):
         trcode = trcode.upper()
         temp = cls.tr[trcode].execute()
+        print("Handler execute: ", temp, trcode)
         cls.db[trcode] = temp
