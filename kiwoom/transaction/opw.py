@@ -9,7 +9,7 @@
         opw00018(**kwargs), kwargs는 opw00018에서 요구하는 인자들
         docs참조해서 작성하면 됨.
 """
-
+from kiwoom.handler import Handler
 from kiwoom.method import SetInputValues, CommRqData, GetCommData
 
 # Transaction 순서
@@ -25,83 +25,46 @@ from kiwoom.method import SetInputValues, CommRqData, GetCommData
 # 우선 동기로 구현, 나중에 비동기로 수정
 
 
-class WaitEvent:
-    """Context를 활용한 동기화"""
+class Base:
+    trcode: str = None
+    rcname: str = None
+    window: str = None
 
-    def __init__(self, event):
-        self._event = event
+    @classmethod
+    def run(cls, **kwargs):
+        SetInputValues(kwargs)
+        CommRqData(cls.rcname, cls.trcode, 0, cls.window)
 
-    def __enter__(self):
-        self._event.exec_()
-
-    def __exit__(self, ext_type, ex_value, ex_traceback):
-        pass
-
-
-def opw00018(helper, **kwargs):
-    """
-    Args:
-        dict: {
-            계좌번호: str
-            비밀번호: str
-            비밀번호입력매체구분: str
-            조회구분: str
-        }
-    Returns:
-        IF "조회구분" == 1:
-            [a, b, c, d]: list
-            a: 총매입금액
-            b: 총평가금액
-            c: 총수익률(%)
-            d: 추정예탁자산
-        ELIF "조회구분" == 2:
-
-    """
-    SetInputValues(kwargs)  # 값 설정
+    @classmethod
+    def get(cls):
+        temp = Handler.db[cls.trcode]
+        Handler.db[cls.trcode] = []  # flush
+        return temp
 
 
-    if kwargs["조회구분"] == 1:
-        CommRqData("계좌평가잔고내역", "opw00018", 0, "2000")  # 요청
+class OPW00018(Base):
+    trcode: str = "opw00018"
+    rcname: str = "계좌평가잔고내역"
+    window: str = "2000"
 
-    kwargs["조회구분"] = 3
-    SetInputValues(kwargs)
-
-    CommRqData("예수금상세현황요청", "opw00001", 0, "2001")
-
-    helper.block.exec_()  # 이 코드가 있으면 실행이 안됨.
-    # if kwargs["조회구분"] == 2:
-
-
-def opw00018_receive():
-    data = list()
-
-    data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총매입금액"))
-    data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가금액"))
-    data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가손익금액"))
-    data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총수익률(%)"))
-    data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "추정예탁자산"))
-
-    return data
+    @staticmethod
+    def excute():
+        data = list()
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총매입금액"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가금액"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가손익금액"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총수익률(%)"))
+        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "추정예탁자산"))
+        return data
 
 
-def opw00001(helper, **kwargs):
-    """예수금상세현황요청
-    Args:
-        dict: {
-            계좌번호: str
-            비밀번호: str
-            비밀번호입력매체구분: str
-            조회구분: str, 3: 추정조회, 2: 일반조회
-        }
-    Returns:
-        IF "조회구분" == 3:
-            Return d2_deposit
-        ELIF "조회구분" == 2:
-        ...
-    """
-    SetInputValues(kwargs)
+class OPW00001(Base):
+    trcode: str = "opw00001"
+    rcname: str = "예수금상세현황요청"
+    window: str = "2001"
 
-    if kwargs["조회구분"] == 3:  # 추정조회
-        CommRqData("예수금상세현황요청", "opw00001", 0, "2001")
-        helper.block.exec_()
-        return GetCommData("opw00001", "예수금상세현황요청", 0, "d+2추정예수금")
+    @staticmethod
+    def execute():
+        data = list()
+        data.append(GetCommData("opw00001", "예수금상세현황요청", 0, "d+2추정예수금"))
+        return data

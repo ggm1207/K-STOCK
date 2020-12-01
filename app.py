@@ -7,8 +7,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from kiwoom.handler import Handler
 from pytrader.base import CurStatus, EventList
 
-from kiwoom.transaction.opw import opw00018_receive
-
 UIPATH = "./view/app.ui"
 THEME = "./view/white.css"
 ONE_SECOND = 1000
@@ -56,16 +54,13 @@ class App(QMainWindow, UI):
     def _on_receive_tr_data(
         self, sScrNo, sRQName, sTrCode, sRecordName, sPrevNext, *args, **kwargs
     ):
-        """조회요청 응답을 받거나 조회데이터를 수신했을때 호출됩니다.
-        조회데이터는 이 이벤트내부에서 GetCommData()함수를 이용해서
-        얻어올 수 있습니다."""
+
+        Handler.execute(sTrCode)
         print(sScrNo, sRQName, sTrCode, sRecordName, sPrevNext)
         # 2000, opw00018_req, ... ,
+        # tr.get(sTrCode)  # data를 저장?
         print("args:", args)  # not used
         print("kwargs:", kwargs)  # No Return
-
-        data = opw00018_receive()  # 시박!! 여기 안에서만... 무조건!
-        print(data)
 
         self.helper.block.exit()  # TODO: 비동기에서는...?
 

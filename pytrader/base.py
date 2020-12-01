@@ -2,7 +2,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 
-from kiwoom.transaction.opw import opw00018, opw00001
+from kiwoom.transaction.opw import OPW00018, OPW00001
 from kiwoom.method import GetLoginInfo
 
 
@@ -34,19 +34,17 @@ class CurStatus(QGroupBox):
         )
 
         # 잔고 조회
-        data = opw00018(self.parent.helper, **context)
-        table = self.parent.balanceTable
-
-        # 종목 조회
-        # context["조회구분"] = 2  # 개별
-        # data = OPW00018(context)
-
-        # d+2추정예수금
+        OPW00018.run(context)
         context["조회구분"] = 3
-        d2_deposit = opw00001(self.parent.helper, **context)
+        OPW00001.run(context)
 
-        # 값 집어넣기
-        data.insert(0, d2_deposit)
+        self.parent.helper.block.exec_()
+
+        data = list()
+        data += OPW00001.get()
+        data += OPW00018.get()
+
+        table = self.parent.balanceTable
 
         for i in range(6):
             print(f"data {i}:", data[i], end=" ")
