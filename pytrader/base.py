@@ -34,9 +34,9 @@ class CurStatus(QGroupBox):
         )
 
         # 잔고 조회
-        TR.run(OPW00018, context)
+        TR.run(OPW00018, **context)
         context["조회구분"] = 3
-        TR.run(OPW00001, context)
+        TR.run(OPW00001, **context)
 
         self.parent.helper.block.exec_()
 
