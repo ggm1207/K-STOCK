@@ -9,7 +9,7 @@
         opw00018(**kwargs), kwargs는 opw00018에서 요구하는 인자들
         docs참조해서 작성하면 됨.
 """
-from kiwoom.handler import Handler
+from kiwoom.handler import Handler as H
 from kiwoom.method import SetInputValues, CommRqData, GetCommData
 
 # Transaction 순서
@@ -37,8 +37,8 @@ class Base:
 
     @classmethod
     def get(cls):
-        temp = Handler.db[cls.trcode]
-        Handler.db[cls.trcode] = []  # flush
+        temp = H.db[cls.trcode]
+        H.db[cls.trcode] = []  # flush
         return temp
 
 
