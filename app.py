@@ -60,6 +60,8 @@ class App(QMainWindow, UI):
 
         Handler.lock[trcode] = True
 
+        print(Handler.lock)
+
         if all(Handler.lock.values()):
             self.helper.block.exit()  # TODO: 비동기에서는...?
 
