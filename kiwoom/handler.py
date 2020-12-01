@@ -45,7 +45,7 @@ class Handler(QAxWidget):
 
         cls.kiwoom = Kiwoom()
         for c in Base.__subclasses__():
-            cls.tr[c.__name____] = c
+            cls.tr[c.__name__] = c
 
     @classmethod
     def execute(cls, trcode: str):
