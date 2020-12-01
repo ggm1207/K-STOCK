@@ -36,7 +36,7 @@ class WaitEvent:
 
 class Handler(QAxWidget):
     kiwoom = None
-    tr = None
+    tr = dict()
     db = defaultdict(list)
 
     def __new__(cls):
