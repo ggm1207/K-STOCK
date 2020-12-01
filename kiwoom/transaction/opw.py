@@ -30,7 +30,7 @@ class TR:
     rcname: str = None
     window: str = None
 
-    @staticmethod
+    @classmethod
     def run(cls, **kwargs):
         SetInputValues(kwargs)
         CommRqData(cls.rcname, cls.trcode, 0, cls.window)
