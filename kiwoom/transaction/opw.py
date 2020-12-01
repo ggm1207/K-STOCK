@@ -49,7 +49,7 @@ class OPW00018(TR):
     window: str = "2000"
 
     @staticmethod
-    def excute():
+    def execute():
         data = list()
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총매입금액"))
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가금액"))

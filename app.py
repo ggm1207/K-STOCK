@@ -63,10 +63,10 @@ class App(QMainWindow, UI):
         print("kwargs:", kwargs)  # No Return
         trcode = sTrCode.upper()  # Upper for class
 
+        Handler.lock[trcode] = True
+
         if all(Handler.lock.values()):
             self.helper.block.exit()  # TODO: 비동기에서는...?
-
-        Handler.lock[trcode] = True
 
     def _set_init_widgets(self):
         # 서버와의 연결을 확인하는 Timer
