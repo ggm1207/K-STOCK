@@ -13,6 +13,7 @@ from copy import copy
 
 from kiwoom.handler import Handler
 from kiwoom.method import SetInputValues, CommRqData, GetCommData
+from kiwoom.transaction.utils import change_format
 
 # Transaction 순서
 # 1. SetInputValue의 순서 (Set)
@@ -60,8 +61,14 @@ class OPW00018(TR):
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가손익금액"))
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총수익률(%)"))
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "추정예탁자산"))
-        
-        data = list(map(lambda x: x.lstrip("0"), data))
+
+        data = list(map(lambda x: change_format(x), data))
+        data[3] = (
+            float(eval(data[3] / 300))
+            if Handler.kiwoom.server == 1
+            else data[3]
+        )
+
         return data
 
 
