@@ -60,6 +60,8 @@ class OPW00018(TR):
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가손익금액"))
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총수익률(%)"))
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "추정예탁자산"))
+        
+        data = list(map(lambda x: x.lstrip("0"), data))
         return data
 
 
@@ -72,4 +74,5 @@ class OPW00001(TR):
     def execute():
         data = list()
         data.append(GetCommData("opw00001", "예수금상세현황요청", 0, "d+2추정예수금"))
+        data = list(map(lambda x: x.lstrip("0"), data))
         return data
