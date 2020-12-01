@@ -38,6 +38,7 @@ class Handler(QAxWidget):
     kiwoom = None
     tr = dict()
     db = defaultdict(list)
+    lock = dict()
 
     def __new__(cls):
         """딱 한 번만 실행"""
@@ -46,6 +47,14 @@ class Handler(QAxWidget):
         cls.kiwoom = Kiwoom()
         for c in TR.__subclasses__():
             cls.tr[c.__name__] = c
+
+    @classmethod
+    def run(cls, block, tr_classes):
+        for tr_cls, context in tr_classes:
+            tr_cls.run(**context)
+            cls.lock[tr_cls.__name__] = False
+
+        block.exec_()
 
     @classmethod
     def execute(cls, trcode: str):

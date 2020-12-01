@@ -39,6 +39,7 @@ class TR:
     def get(cls):
         temp = Handler.db[cls.trcode]
         Handler.db[cls.trcode] = []  # flush
+        print(temp)
         return temp
 
 

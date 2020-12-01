@@ -61,8 +61,12 @@ class App(QMainWindow, UI):
         # tr.get(sTrCode)  # data를 저장?
         print("args:", args)  # not used
         print("kwargs:", kwargs)  # No Return
+        trcode = sTrCode.upper()  # Upper for class
 
-        self.helper.block.exit()  # TODO: 비동기에서는...?
+        if all(Handler.lock.values()):
+            self.helper.block.exit()  # TODO: 비동기에서는...?
+
+        Handler.lock[trcode] = True
 
     def _set_init_widgets(self):
         # 서버와의 연결을 확인하는 Timer

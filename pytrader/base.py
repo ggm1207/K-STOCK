@@ -2,8 +2,9 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 
-from kiwoom.transaction.opw import OPW00018, OPW00001
+from kiwoom.handler import Handler
 from kiwoom.method import GetLoginInfo
+from kiwoom.transaction.opw import OPW00018, OPW00001
 
 
 class CurStatus(QGroupBox):
@@ -24,7 +25,7 @@ class CurStatus(QGroupBox):
         account = self.parent.accounts.currentText()
         password = "0000"  # TODO: 계좌별 비밀번호를 불러오도록 수정
         where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
-        context = dict(
+        opw00018_context = dict(
             {
                 "계좌번호": account,
                 "비밀번호": password,
@@ -34,11 +35,13 @@ class CurStatus(QGroupBox):
         )
 
         # 잔고 조회
-        OPW00018.run(**context)
-        context["조회구분"] = 3
-        OPW00001.run(**context)
+        opw00001_context = opw00018_context.copy()
+        opw00001_context["조회구분"] = 3
 
-        self.parent.helper.block.exec_()
+        Handler.run(
+            self.parent.helper.block,
+            [(OPW00001, opw00001_context), (OPW00018, opw00018_context)],
+        )
 
         data = list()
         data += OPW00001.get()
