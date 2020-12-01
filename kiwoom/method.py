@@ -99,7 +99,6 @@ def GetCommData(trCode, rName, nIndex, itemName):
         nIndex,
         itemName,
     )
-    print("ret: ", ret)
     return ret.strip()
 
 

@@ -9,6 +9,8 @@
         opw00018(**kwargs), kwargs는 opw00018에서 요구하는 인자들
         docs참조해서 작성하면 됨.
 """
+from copy import copy
+
 from kiwoom.handler import Handler
 from kiwoom.method import SetInputValues, CommRqData, GetCommData
 
@@ -37,9 +39,10 @@ class TR:
 
     @classmethod
     def get(cls):
-        temp = Handler.db[cls.trcode]
+        temp = copy(Handler.db[cls.trcode])
+        print('temp:', temp)
         Handler.db[cls.trcode] = []  # flush
-        print(temp)
+        print('temp flush:', temp)
         return temp
 
 

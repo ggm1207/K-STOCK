@@ -47,6 +47,8 @@ class CurStatus(QGroupBox):
         data += OPW00001.get()
         data += OPW00018.get()
 
+        print("data:", data)
+
         table = self.parent.balanceTable
 
         for i in range(6):

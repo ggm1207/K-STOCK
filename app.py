@@ -56,11 +56,6 @@ class App(QMainWindow, UI):
     ):
 
         Handler.execute(sTrCode)
-        print(sScrNo, sRQName, sTrCode, sRecordName, sPrevNext)
-        # 2000, opw00018_req, ... ,
-        # tr.get(sTrCode)  # data를 저장?
-        print("args:", args)  # not used
-        print("kwargs:", kwargs)  # No Return
         trcode = sTrCode.upper()  # Upper for class
 
         Handler.lock[trcode] = True

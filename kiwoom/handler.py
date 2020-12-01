@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 from PyQt5.QtCore import QEventLoop
 from PyQt5.QAxContainer import QAxWidget
 
@@ -37,7 +35,7 @@ class WaitEvent:
 class Handler(QAxWidget):
     kiwoom = None
     tr = dict()
-    db = defaultdict(list)
+    db = dict()
     lock = dict()
 
     def __new__(cls):
@@ -60,5 +58,4 @@ class Handler(QAxWidget):
     def execute(cls, trcode: str):
         trcode = trcode.upper()
         temp = cls.tr[trcode].execute()
-        print(temp)
         cls.db[trcode] = temp
