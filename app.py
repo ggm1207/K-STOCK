@@ -29,7 +29,7 @@ class App(QMainWindow, UI):
         self._event_connect()
 
         self.block = QEventLoop()
-        Handler.kiwoom.init(self.helper.block)
+        Handler.kiwoom.init(self.block)
 
         # self.setStyleSheet(THEME)
         self.curStatus = CurStatus(self)
@@ -47,7 +47,7 @@ class App(QMainWindow, UI):
             msg = "disconnected"
 
         print(msg)
-        self.helper.block.exit()
+        self.block.exit()
 
     def _on_receive_tr_data(
         self, sScrNo, sRQName, sTrCode, sRecordName, sPrevNext, *args, **kwargs
