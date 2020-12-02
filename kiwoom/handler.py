@@ -55,14 +55,13 @@ class Handler(QAxWidget):
         print(tr_class.trcode, ": run!")
 
     @classmethod
-    def get_values(cls, tr_code):
-        print("get_values: 시작")
-        tr_class = cls.tr[tr_code]
-        temp = cls.tr[tr_code].get_values(cls.keys[tr_class.trcode])
+    def get_values(cls, trcode):
+        temp = cls.tr[trcode].get_values(cls.keys[trcode])
         # trcode = trcode.upper()
         # temp = cls.tr[trcode].execute()
-        cls.db[tr_class.trcode] = temp
+        cls.db[trcode] = temp
+        cls.lock[trcode] = True
 
     @classmethod
     def get(cls, tr_class):
-        return cls.db[tr_class.tr_code]
+        return cls.db[tr_class.trcode]
