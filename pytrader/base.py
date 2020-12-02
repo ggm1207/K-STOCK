@@ -19,13 +19,12 @@ class ManualOrder(QGroupBox):
         super(QGroupBox, self).__init__(parent)
         self.parent = parent
         self._manual_order_setting()
-
         self.parent.mo_sendOrder.clicked.connect(self._send_order)
 
     def _code_changed(self):
         code = self.parent.mo_code.text()
         name = GetMasterCodeName(code)
-        self.parent.mo_code.setText(name)
+        self.parent.mo_class.setText(name)
 
     def _manual_order_setting(self):
         # 계좌
