@@ -3,30 +3,75 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 
 from kiwoom.handler import Handler, Wait
-from kiwoom.method import GetLoginInfo
+from kiwoom.method import (
+    GetLoginInfo,
+    GetCommDataEx,
+    GetMasterCodeName,
+    SendOrder,
+)
 from kiwoom.transaction.opw import OPW00018, OPW00001
 
 from config.config import password
+
+
+class ManualOrder(QGroupBox):
+    def __init__(self, parent):
+        super(QGroupBox, self).__init__(parent)
+        self.parent = parent
+        self._manual_order_setting()
+
+        self.parent.mo_sendOrder.clicked.connect(self._send_order)
+
+    def _code_changed(self):
+        code = self.parent.mo_code.text()
+        name = GetMasterCodeName(code)
+        self.parent.mo_code.setText(name)
+
+    def _manual_order_setting(self):
+        # 계좌
+        accounts_num = int(GetLoginInfo("ACCOUNT_CNT"))
+        accounts = GetLoginInfo("ACCNO")
+        account_list = accounts.split(";")[:accounts_num]
+        self.parent.mo_accounts.addItems(account_list)
+
+        # 종목
+        self.parent.mo_code.textChanged.connect(self._code_changed)
+
+    def _send_order(self):
+        order_type_lookup = {"신규매수": 1, "신규매도": 2, "매수취소": 3, "매도취소": 4}
+        hoga_lookup = {"지정가": "00", "시장가": "03"}
+
+        account = self.parent.mo_accounts.currentText()
+        order_type = self.parent.mo_order.currentText()
+        code = self.parent.mo_code.text()
+        hoga = self.parent.mo_hoga.currentText()
+        num = self.parent.mo_num.value()
+        price = self.parent.mo_price.value()
+
+        SendOrder(
+            "send_order_req",
+            "0101",
+            account,
+            order_type_lookup[order_type],
+            code,
+            num,
+            price,
+            hoga_lookup[hoga],
+            "",
+        )
 
 
 class CurStatus(QGroupBox):
     def __init__(self, parent):
         super(QGroupBox, self).__init__(parent)
         self.parent = parent
-        self._accounts_setting()
         self._balance_setting()
-
-    def _accounts_setting(self):
-        accounts_num = int(GetLoginInfo("ACCOUNT_CNT"))
-        accounts = GetLoginInfo("ACCNO")
-        account_list = accounts.split(";")[:accounts_num]
-        self.parent.accounts.addItems(account_list)
 
     def _balance_setting(self):
         """OPW00018, OPW"""
         account = self.parent.accounts.currentText()
         where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
-        opw00018_context = dict(
+        context = dict(
             {
                 "계좌번호": account,
                 "비밀번호": password,
@@ -34,11 +79,6 @@ class CurStatus(QGroupBox):
                 "조회구분": 1,
             }  # 합산
         )
-
-        # 잔고 조회
-        # opw00001_context = opw00018_context.copy()
-        # opw00001_context["조회구분"] = 3
-        context = opw00018_context.copy()
 
         with Wait(self.parent.block):
             Handler.run(
@@ -49,30 +89,36 @@ class CurStatus(QGroupBox):
             context["조회구분"] = 3
             Handler.run(OPW00001, context, keys=["d+2추정예수금"])
 
-        # data = Handler.get_values(OPW00018, keys = ["가", "나"])
-
-        # Handler.run(
-        # self.parent.helper.block,
-        # [(OPW00001, opw00001_context), (OPW00018, opw00018_context)],
-        # )
-
-        data = list()
-        data += Handler.get(OPW00018)
-        data += Handler.get(OPW00001)
-
-        print("data:", data)
+        datas = list()
+        datas += Handler.get(OPW00001)
+        datas += Handler.get(OPW00018)
 
         table = self.parent.balanceTable
 
-        for i in range(6):
-            print(f"data {i}:", data[i], end=" ")
-            item = QTableWidgetItem(data[i])
+        for i, data in enumerate(datas):
+            item = QTableWidgetItem(data)
             item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
             table.setItem(0, i, item)
 
     def _stock_setting(self):
-        """ 아직 방법 생각 중.. """
-        pass
+        """ 내가 가지고 있는 주식 종목 들 """
+        account = self.parent.accounts.currentText()
+        where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
+        context = dict(
+            {
+                "계좌번호": account,
+                "비밀번호": password,
+                "비밀번호입력매체구분": where,
+                "조회구분": 2,
+            }  # 개별
+        )
+
+        with Wait(self.parent.block):
+            Handler.run(
+                OPW00018,
+                context,
+                keys=["종목명", "보유수량", "매입가", "현재가", "평가손익", "수익률(%)"],
+            )
 
 
 class EventList(QGroupBox):

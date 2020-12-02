@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>918</width>
     <height>600</height>
    </rect>
   </property>
@@ -31,10 +31,10 @@ margin-left: 4px;
    <widget class="QGroupBox" name="curStatus">
     <property name="geometry">
      <rect>
-      <x>1</x>
-      <y>10</y>
-      <width>796</width>
-      <height>345</height>
+      <x>183</x>
+      <y>13</y>
+      <width>725</width>
+      <height>326</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -46,9 +46,9 @@ margin-left: 4px;
     <widget class="QTableWidget" name="balanceTable">
      <property name="geometry">
       <rect>
-       <x>4</x>
-       <y>27</y>
-       <width>789</width>
+       <x>6</x>
+       <y>30</y>
+       <width>711</width>
        <height>55</height>
       </rect>
      </property>
@@ -90,9 +90,9 @@ margin-left: 4px;
     <widget class="QTableWidget" name="stockTable">
      <property name="geometry">
       <rect>
-       <x>4</x>
-       <y>77</y>
-       <width>789</width>
+       <x>6</x>
+       <y>80</y>
+       <width>711</width>
        <height>235</height>
       </rect>
      </property>
@@ -126,21 +126,11 @@ margin-left: 4px;
        <string>수익률 (%)</string>
       </property>
      </column>
-     <column>
-      <property name="text">
-       <string>매도 전략</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>선매도</string>
-      </property>
-     </column>
     </widget>
     <widget class="QCheckBox" name="realTime">
      <property name="geometry">
       <rect>
-       <x>638</x>
+       <x>756</x>
        <y>315</y>
        <width>59</width>
        <height>24</height>
@@ -153,7 +143,7 @@ margin-left: 4px;
     <widget class="QPushButton" name="check">
      <property name="geometry">
       <rect>
-       <x>700</x>
+       <x>818</x>
        <y>314</y>
        <width>84</width>
        <height>28</height>
@@ -163,24 +153,14 @@ margin-left: 4px;
       <string>조회</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="accounts">
-     <property name="geometry">
-      <rect>
-       <x>132</x>
-       <y>0</y>
-       <width>151</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
    </widget>
    <widget class="QGroupBox" name="eventList">
     <property name="geometry">
      <rect>
       <x>1</x>
       <y>360</y>
-      <width>796</width>
-      <height>181</height>
+      <width>911</width>
+      <height>191</height>
      </rect>
     </property>
     <property name="title">
@@ -191,8 +171,8 @@ margin-left: 4px;
       <rect>
        <x>4</x>
        <y>26</y>
-       <width>789</width>
-       <height>152</height>
+       <width>901</width>
+       <height>161</height>
       </rect>
      </property>
      <column>
@@ -227,8 +207,179 @@ margin-left: 4px;
      </column>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>13</y>
+      <width>169</width>
+      <height>327</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>수동주문</string>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>36</y>
+       <width>27</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>계좌</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="accounts">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>34</y>
+       <width>124</width>
+       <height>24</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="accounts_2">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>65</y>
+       <width>124</width>
+       <height>24</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>67</y>
+       <width>27</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>주문</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>172</y>
+       <width>27</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>종류</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="accounts_3">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>170</y>
+       <width>124</width>
+       <height>24</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>237</y>
+       <width>27</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>가격</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>206</y>
+       <width>27</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>수량</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>27</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>종목</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>100</y>
+       <width>123</width>
+       <height>26</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>134</y>
+       <width>123</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(170, 255, 255);</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBox">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>203</y>
+       <width>124</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1000000</number>
+     </property>
+     <property name="singleStep">
+      <number>50</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBox_2">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>235</y>
+       <width>124</width>
+       <height>27</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
    <zorder>eventList</zorder>
    <zorder>curStatus</zorder>
+   <zorder>groupBox</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
@@ -236,7 +387,7 @@ margin-left: 4px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>918</width>
      <height>23</height>
     </rect>
    </property>

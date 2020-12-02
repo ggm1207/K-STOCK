@@ -5,7 +5,7 @@ from PyQt5.QtCore import QTime, QTimer, QEventLoop
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 from kiwoom.handler import Handler
-from pytrader.base import CurStatus, EventList
+from pytrader.base import CurStatus, EventList, ManualOrder
 
 UIPATH = "./view/app.ui"
 THEME = "./view/white.css"
@@ -32,6 +32,7 @@ class App(QMainWindow, UI):
         Handler.kiwoom.init(self.block)
 
         # self.setStyleSheet(THEME)
+        self.manualOrder = ManualOrder(self)
         self.curStatus = CurStatus(self)
         self.eventList = EventList(self)
 
@@ -40,6 +41,9 @@ class App(QMainWindow, UI):
     def _event_connect(self):
         Handler.kiwoom.OnEventConnect.connect(self._on_event_connect)
         Handler.kiwoom.OnReceiveTrData.connect(self._on_receive_tr_data)
+        Handler.kiwoom.OnReceiveChejanData.connect(
+            self._on_receive_chejan_data
+        )
 
     def _on_event_connect(self, err_code):
         msg = "connected"
@@ -57,6 +61,10 @@ class App(QMainWindow, UI):
 
         if all(Handler.lock.values()):  # 그리 큰
             self.block.exit()  # TODO: 비동기에서는...?
+
+    def _on_receive_chejan_data(self, gubun, item_cnt, fid_list):
+        """ 주문체결 데이터를 출력할 UI가 존재하지 않으므로... """
+        print(gubun)
 
     def _set_init_widgets(self):
         # 서버와의 연결을 확인하는 Timer

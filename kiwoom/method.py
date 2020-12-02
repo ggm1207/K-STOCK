@@ -6,6 +6,51 @@ Usage:
 from kiwoom.handler import Handler
 
 
+def SendOrder(
+    sRQName,
+    sScreenNo,
+    sAccNo,
+    nOrderType,
+    sCode,
+    nQty,
+    nPrice,
+    sHogaGb,
+    sOrgOrderNo,
+):
+    """주식 주문을 서버로 전송한다.
+    Args:
+        sRQName - 사용자 구분 요청 명
+        sScreenNo - 화면번호[4]
+        sAccNo - 계좌번호[10]
+        nOrderType - 주문유형 (1:신규매수, 2:신규매도, 3:매수취소, 4:매도취소, 5:매수정정, 6:매도정
+        정)
+        sCode, - 주식종목코드
+        nQty – 주문수량
+        nPrice – 주문단가
+        sHogaGb - 거래구분
+        sOrgOrderNo – 원주문번호
+    Returns:
+        err_code - 에러코드
+    """
+
+    err_code = Handler.kiwoom.dynamicCall(
+        "SendOrder(QString, QString, QString, int, QString, \
+        int, int, QString, QString)",
+        [
+            sRQName,
+            sScreenNo,
+            sAccNo,
+            nOrderType,
+            sCode,
+            nQty,
+            nPrice,
+            sHogaGb,
+            sOrgOrderNo,
+        ],
+    )
+    return err_code
+
+
 def CommRqData(sRQName: str, sTrCode: str, nPrevNext: int, sScreenNo: str):
     """Tran을 서버로 송신한다
     Args:
@@ -56,11 +101,22 @@ def GetLoginInfo(tag: str):
     raise AttributeError("존재하지 않는 태그입니다!")
 
 
+def GetMasterCodeName(strCode: str):
+    """종목코드의 한글명을 반환한다.
+    Args:
+        strCode[str] - 종목코드
+    Returns:
+        strName[str] - 종목한글명
+    """
+    strName = Handler.kiwoom.dynamicCall("GetMasterCodeName(QString)", strCode)
+    return strName
+
+
 def SetInputValue(sID: str, sValue: str):
     """Tran 입력 값을 서버통신 전에 입력한다.
     Args:
-        sID – 아이템명
-        sValue – 입력 값
+        sID[str] – 아이템명
+        sValue[str] – 입력 값
     E.G)
         SetInputValue("종목코드", "000660");
         SetInputValue("계좌번호", "5015123401")
@@ -68,10 +124,10 @@ def SetInputValue(sID: str, sValue: str):
     Handler.kiwoom.dynamicCall("SetInputValue(QString, QString)", sID, sValue)
 
 
-def SetInputValues(sItems):
+def SetInputValues(sItems: dict):
     """Dict를 입력받아 Key, Id를 SetInputValue를 수행한다.
     Args:
-        sItems - (sId, sValue)의 형식을 가진 Dict
+        sItems[dict] - (sId[str], sValue[str])의 형식을 가진 Dict
     E.G)
         SetInputValues({"종목코드": "000660", "계좌번호": "5015123401"})
     """
@@ -83,10 +139,10 @@ def GetCommData(trCode, rName, nIndex, itemName):
     """수신 데이터를 반환한다, 조회 정보 요청.
     반드시 OnReceiveTRData()이벤트가 호출될때 그 안에서 사용해야 한다.
     Args:
-        strTrCode – Tran 코드
-        strRecordName – 레코드명
-        nIndex – TR 반복부
-        strItemName – TR에서 얻어오려는 출력항목 이름
+        strTrCode[str] – Tran 코드
+        strRecordName[str] – 레코드명
+        nIndex[int] – TR 반복부
+        strItemName[str] – TR에서 얻어오려는 출력항목 이름
     Returns:
         수신 데이터를 반환한다.
     E.G)
@@ -102,10 +158,29 @@ def GetCommData(trCode, rName, nIndex, itemName):
     return ret.strip()
 
 
-def GetCommDataEx():
+def GetCommDataEx(sTrCode, strRecordName):
     """차트 조회처럼 반복데이터가 많은 데이터를 한꺼번에 받아서 처리하고 싶을 때 사용한다.
     Args:
-
+        sTrCode[str] - 조회한 TR코드
+        strRecordName[str] - 조회한 TR명
+    Returns:
+        - 배열로 반환 (파이썬에서는 아마 리스트?)
     """
+    ret = Handler.dynamicCall(
+        "GetCommDataEx(QString, QString)", sTrCode, strRecordName
+    )
+    return ret
 
-    pass
+
+def GetRepeatCnt(sTrCode, sRecordName):
+    """
+    Args:
+        sTrCode[str] - Tran 명
+        sRecordName[str] - 레코드 명
+    Returns:
+        repeat_cnt[int] - 레코드의 반복횟수
+    """
+    repeat_cnt = Handler.dynamicCall(
+        "GetRepeatCnt(QString, QString)", sTrCode, sRecordName
+    )
+    return int(repeat_cnt)
