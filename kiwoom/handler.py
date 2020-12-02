@@ -26,10 +26,10 @@ class Wait:
         self._event = event
 
     def __enter__(self):
-        self._event.exec_()
+        pass
 
     def __exit__(self, ext_type, ex_value, ex_traceback):
-        pass
+        self._event.exec_()
 
 
 class Handler(QAxWidget):
