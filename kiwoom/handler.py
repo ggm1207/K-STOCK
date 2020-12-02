@@ -34,28 +34,35 @@ class Wait:
 
 class Handler(QAxWidget):
     kiwoom = None
-    # tr = dict()
+    tr = dict()
     db = dict()
     keys = dict()
     lock = dict()
 
     def __new__(cls):
         """딱 한 번만 실행"""
-        # from kiwoom.transaction.opw import TR
+        from kiwoom.transaction.opw import TR
         cls.kiwoom = Kiwoom()
 
-        # for tr_sub_class in TR.__subclasses__():
-        # cls.tr[tr_sub_class.trcode] = tr_sub_class
+        for tr_sub_class in TR.__subclasses__():
+            cls.tr[tr_sub_class.trcode] = tr_sub_class
 
     @classmethod
     def run(cls, tr_class, context: dict, keys: list):
         tr_class.run(**context)
         cls.lock[tr_class.trcode] = False
         cls.keys[tr_class.trcode] = keys
+        print(tr_class.trcode, ": run!")
 
     @classmethod
-    def get_values(cls, tr_class):
-        temp = tr_class.get_values(cls.keys[tr_class.trcode])
+    def get_values(cls, tr_code):
+        print("get_values: 시작")
+        tr_class = cls.tr[tr_code]
+        temp = cls.tr[tr_code].get_values(cls.keys[tr_class.trcode])
         # trcode = trcode.upper()
         # temp = cls.tr[trcode].execute()
         cls.db[tr_class.trcode] = temp
+
+    @classmethod
+    def get(cls, tr_class):
+        return cls.db[tr_class.tr_code]

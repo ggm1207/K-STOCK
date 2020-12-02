@@ -57,8 +57,8 @@ class CurStatus(QGroupBox):
         # )
 
         data = list()
-        data += Handler.get_values(OPW00018)
-        data += Handler.get_values(OPW00001)
+        data += Handler.get(OPW00018)
+        data += Handler.get(OPW00001)
 
         print("data:", data)
 
