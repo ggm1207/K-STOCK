@@ -63,7 +63,7 @@ class OPW00018(TR):
 
     @classmethod
     def get_values(cls, keys):
-        data = super().get_values(cls, keys)
+        data = super().get_values(keys)
         data = list(map(lambda x: change_format(x), data))
         data[3] = (
             float(eval(data[3] / 300))
@@ -98,7 +98,7 @@ class OPW00001(TR):
 
     @classmethod
     def get_values(cls, keys):
-        data = super().get_values(cls, keys)
+        data = super().get_values(keys)
         data = list(map(change_format, data))
         return data
 
