@@ -16,11 +16,6 @@ MARKET_START_TIME = QTime(9, 0, 0)
 MARKET_END_TIME = QTime(15, 30, 0)
 
 
-class Helper:
-    def __init__(self):
-        self.block = QEventLoop()
-
-
 class App(QMainWindow, UI):
     def __init__(self):
         super().__init__()
@@ -57,14 +52,16 @@ class App(QMainWindow, UI):
         self, sScrNo, sRQName, sTrCode, sRecordName, sPrevNext, *args, **kwargs
     ):
         print("in event", sScrNo, sTrCode)
-        Handler.get_values(sTrCode)
+
+        if sTrCode.startswith("op"):
+            Handler.get_values(sTrCode)
 
         if all(Handler.lock.values()):  # 그리 큰
             self.block.exit()  # TODO: 비동기에서는...?
 
     def _on_receive_chejan_data(self, gubun, item_cnt, fid_list):
         """ 주문체결 데이터를 출력할 UI가 존재하지 않으므로... """
-        print(gubun)
+        print("gubun:", gubun)
 
     def _set_init_widgets(self):
         # 서버와의 연결을 확인하는 Timer
