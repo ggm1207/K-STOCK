@@ -28,7 +28,7 @@ class App(QMainWindow, UI):
         Handler()  # QWidget Init After QApplication
         self._event_connect()
 
-        self.helper = Helper()
+        self.block = QEventLoop()
         Handler.kiwoom.init(self.helper.block)
 
         # self.setStyleSheet(THEME)
@@ -57,7 +57,7 @@ class App(QMainWindow, UI):
         Handler.lock[sTrCode] = True
 
         if all(Handler.lock.values()):  # 그리 큰
-            self.helper.block.exit()  # TODO: 비동기에서는...?
+            self.block.exit()  # TODO: 비동기에서는...?
 
     def _set_init_widgets(self):
         # 서버와의 연결을 확인하는 Timer
