@@ -2,9 +2,11 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 
-from kiwoom.handler import Handler
+from kiwoom.handler import Handler, Wait
 from kiwoom.method import GetLoginInfo
 from kiwoom.transaction.opw import OPW00018, OPW00001
+
+from config.config import password
 
 
 class CurStatus(QGroupBox):
@@ -23,7 +25,6 @@ class CurStatus(QGroupBox):
     def _balance_setting(self):
         """OPW00018, OPW"""
         account = self.parent.accounts.currentText()
-        password = "0000"  # TODO: 계좌별 비밀번호를 불러오도록 수정
         where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
         opw00018_context = dict(
             {
@@ -35,17 +36,29 @@ class CurStatus(QGroupBox):
         )
 
         # 잔고 조회
-        opw00001_context = opw00018_context.copy()
-        opw00001_context["조회구분"] = 3
+        # opw00001_context = opw00018_context.copy()
+        # opw00001_context["조회구분"] = 3
+        context = opw00018_context.copy()
 
-        Handler.run(
-            self.parent.helper.block,
-            [(OPW00001, opw00001_context), (OPW00018, opw00018_context)],
-        )
+        with Wait(self.parent.block):
+            Handler.run(
+                OPW00018,
+                context,
+                keys=["총매입금액", "총평가금액", "총평가손익금액", "총수익률(%)", "추정예탁자산"],
+            )
+            context["조회구분"] = 3
+            Handler.run(OPW00001, context, keys=["d+2추정예수금"])
+
+        # data = Handler.get_values(OPW00018, keys = ["가", "나"])
+
+        # Handler.run(
+        # self.parent.helper.block,
+        # [(OPW00001, opw00001_context), (OPW00018, opw00018_context)],
+        # )
 
         data = list()
-        data += OPW00001.get()
-        data += OPW00018.get()
+        data += Handler.get_values(OPW00018)
+        data += Handler.get_values(OPW00001)
 
         print("data:", data)
 

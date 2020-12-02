@@ -15,6 +15,7 @@ from kiwoom.handler import Handler
 from kiwoom.method import SetInputValues, CommRqData, GetCommData
 from kiwoom.transaction.utils import change_format
 
+
 # Transaction 순서
 # 1. SetInputValue의 순서 (Set)
 # 2. CommRqData의 순서 (Request)
@@ -41,20 +42,38 @@ class TR:
     @classmethod
     def get(cls):
         temp = copy(Handler.db[cls.trcode])
-        print(Handler.db)
-        print("temp:", temp)
         Handler.db[cls.trcode] = []  # flush
-        print("temp flush:", temp)
         return temp
+
+    @classmethod
+    def get_values(cls, keys):
+        data = list()
+        for key in keys:
+            data.append(GetCommData(cls.trcode, cls.rcname, 0, key))
+        return data
+
+    def __str__(self):
+        return self.trcode
 
 
 class OPW00018(TR):
-    trcode: str = "OPW00018"
+    trcode: str = "opw00018"
     rcname: str = "계좌평가잔고내역"
     window: str = "2000"
 
+    @classmethod
+    def get_values(cls, keys):
+        data = super().get_values(cls, keys)
+        data = list(map(lambda x: change_format(x), data))
+        data[3] = (
+            float(eval(data[3] / 300))
+            if Handler.kiwoom.server == 1
+            else data[3]
+        )
+        return data
+
     @staticmethod
-    def execute():
+    def execute(keys):
         data = list()
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총매입금액"))
         data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가금액"))
@@ -73,9 +92,15 @@ class OPW00018(TR):
 
 
 class OPW00001(TR):
-    trcode: str = "OPW00001"
+    trcode: str = "opw00001"
     rcname: str = "예수금상세현황요청"
     window: str = "2001"
+
+    @classmethod
+    def get_values(cls, keys):
+        data = super().get_values(cls, keys)
+        data = list(map(change_format, data))
+        return data
 
     @staticmethod
     def execute():

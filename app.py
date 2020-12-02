@@ -19,8 +19,6 @@ MARKET_END_TIME = QTime(15, 30, 0)
 class Helper:
     def __init__(self):
         self.block = QEventLoop()
-        self.trcode = None
-        self.rcname = None
 
 
 class App(QMainWindow, UI):
@@ -54,15 +52,11 @@ class App(QMainWindow, UI):
     def _on_receive_tr_data(
         self, sScrNo, sRQName, sTrCode, sRecordName, sPrevNext, *args, **kwargs
     ):
+        print("in event", sScrNo, sTrCode)
+        Handler.get_values(sTrCode)
+        Handler.lock[sTrCode] = True
 
-        Handler.execute(sTrCode)
-        trcode = sTrCode.upper()  # Upper for class
-
-        Handler.lock[trcode] = True
-
-        print(Handler.lock)
-
-        if all(Handler.lock.values()):
+        if all(Handler.lock.values()):  # 그리 큰
             self.helper.block.exit()  # TODO: 비동기에서는...?
 
     def _set_init_widgets(self):
