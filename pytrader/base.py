@@ -68,7 +68,7 @@ class CurStatus(QGroupBox):
 
     def _balance_setting(self):
         """OPW00018, OPW"""
-        account = self.parent.accounts.currentText()
+        account = self.parent.mo_accounts.currentText()
         where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
         context = dict(
             {
@@ -101,7 +101,7 @@ class CurStatus(QGroupBox):
 
     def _stock_setting(self):
         """ 내가 가지고 있는 주식 종목 들 """
-        account = self.parent.accounts.currentText()
+        account = self.parent.mo_accounts.currentText()
         where = "00"  # Kiwoom 서버에서 우리를 구별하기 위해 입력하는 값.
         context = dict(
             {
