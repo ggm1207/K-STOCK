@@ -2,6 +2,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 
+import pandas as pd
+
 from kiwoom.handler import Handler, Wait
 from kiwoom.method import (
     GetLoginInfo,
@@ -120,7 +122,9 @@ class CurStatus(QGroupBox):
             )
 
         datas = Handler.get(OPW00018)
-        print(datas)
+        col_list = ["종목명", "보유수량", "매입가", "현재가", "평가손익", "수익률(%)"]
+        datas = pd.DataFrame(datas, columns=col_list)
+        print("datas:", datas)
 
 
 class EventList(QGroupBox):

@@ -167,9 +167,7 @@ def GetCommDataEx(sTrCode, strRecordName):
         - 배열로 반환 (파이썬에서는 아마 리스트?)
     """
     ret = Handler.kiwoom.GetCommDataEx(sTrCode, strRecordName)
-    print(ret)
     return ret
-
 
 def GetRepeatCnt(sTrCode, sRecordName):
     """
