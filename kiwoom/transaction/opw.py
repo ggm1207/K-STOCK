@@ -68,7 +68,7 @@ class M_OPW00018(TR):
 
     @classmethod
     def get_values(cls, keys):
-        data = GetCommDataEx(cls.trcode, ["종목명", "보유수량", "매입가", "현재가"])
+        data = GetCommDataEx(cls.trcode, cls.rcname)
         return data
 
 
