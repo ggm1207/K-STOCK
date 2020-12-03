@@ -65,6 +65,7 @@ class CurStatus(QGroupBox):
         super(QGroupBox, self).__init__(parent)
         self.parent = parent
         self._balance_setting()
+        self._stock_setting()
 
     def _balance_setting(self):
         """OPW00018, OPW"""
