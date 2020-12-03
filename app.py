@@ -62,6 +62,10 @@ class App(QMainWindow, UI):
     def _on_receive_chejan_data(self, gubun, item_cnt, fid_list):
         """ 주문체결 데이터를 출력할 UI가 존재하지 않으므로... """
         print("gubun:", gubun)
+        print(123124124)
+        print(123124124)
+        print(123124124)
+        print(123124124)
 
     def _set_init_widgets(self):
         # 서버와의 연결을 확인하는 Timer
