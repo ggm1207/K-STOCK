@@ -42,6 +42,7 @@ class Handler(QAxWidget):
     def __new__(cls):
         """딱 한 번만 실행"""
         from kiwoom.transaction.opw import TR
+
         cls.kiwoom = Kiwoom()
 
         for tr_sub_class in TR.__subclasses__():
@@ -56,7 +57,7 @@ class Handler(QAxWidget):
 
     @classmethod
     def get_values(cls, trcode):
-        temp = cls.tr[trcode].get_values(cls.keys[trcode])
+        temp = cls.tr[trcode].get_multi_values(cls.keys[trcode])
         # trcode = trcode.upper()
         # temp = cls.tr[trcode].execute()
         cls.db[trcode] = temp

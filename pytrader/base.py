@@ -79,25 +79,25 @@ class CurStatus(QGroupBox):
             }  # 합산
         )
 
-        with Wait(self.parent.block):
-            Handler.run(
-                OPW00018,
-                context,
-                keys=["총매입금액", "총평가금액", "총평가손익금액", "총수익률(%)", "추정예탁자산"],
-            )
-            context["조회구분"] = 3
-            Handler.run(OPW00001, context, keys=["d+2추정예수금"])
+        # with Wait(self.parent.block):
+            # Handler.run(
+                # OPW00018,
+                # context,
+                # keys=["총매입금액", "총평가금액", "총평가손익금액", "총수익률(%)", "추정예탁자산"],
+            # )
+            # context["조회구분"] = 3
+            # Handler.run(OPW00001, context, keys=["d+2추정예수금"])
 
-        datas = list()
-        datas += Handler.get(OPW00001)
-        datas += Handler.get(OPW00018)
+        # datas = list()
+        # datas += Handler.get(OPW00001)
+        # datas += Handler.get(OPW00018)
 
-        table = self.parent.balanceTable
+        # table = self.parent.balanceTable
 
-        for i, data in enumerate(datas):
-            item = QTableWidgetItem(data)
-            item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
-            table.setItem(0, i, item)
+        # for i, data in enumerate(datas):
+            # item = QTableWidgetItem(data)
+            # item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
+            # table.setItem(0, i, item)
 
     def _stock_setting(self):
         """ 내가 가지고 있는 주식 종목 들 """
@@ -118,6 +118,8 @@ class CurStatus(QGroupBox):
                 context,
                 keys=["종목명", "보유수량", "매입가", "현재가", "평가손익", "수익률(%)"],
             )
+
+        datas = Handler.get(OPW00018) 
 
 
 class EventList(QGroupBox):

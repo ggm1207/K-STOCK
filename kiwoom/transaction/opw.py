@@ -12,7 +12,12 @@
 from copy import copy
 
 from kiwoom.handler import Handler
-from kiwoom.method import SetInputValues, CommRqData, GetCommData
+from kiwoom.method import (
+    SetInputValues,
+    CommRqData,
+    GetCommData,
+    GetCommDataEx,
+)
 from kiwoom.transaction.utils import change_format
 
 
@@ -50,6 +55,12 @@ class TR:
         data = list()
         for key in keys:
             data.append(GetCommData(cls.trcode, cls.rcname, 0, key))
+        return data
+
+    @classmethod
+    def get_multi_values(cls, keys):
+        data = GetCommDataEx(cls.trcode, cls.rcname)
+        print(data)
         return data
 
     def __str__(self):
