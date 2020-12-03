@@ -58,6 +58,7 @@ class Handler(QAxWidget):
     @classmethod
     def get_values(cls, window):
         temp = cls.tr[window].get_values(cls.keys[window])
+        print("temp:", temp)
         # window = window.upper()
         # temp = cls.tr[window].execute()
         cls.db[window] = temp
