@@ -12,7 +12,12 @@
 from copy import copy
 
 from kiwoom.handler import Handler
-from kiwoom.method import SetInputValues, CommRqData, GetCommData, GetCommDataEx
+from kiwoom.method import (
+    SetInputValues,
+    CommRqData,
+    GetCommData,
+    GetCommDataEx,
+)
 from kiwoom.transaction.utils import change_format
 
 
@@ -54,6 +59,7 @@ class TR:
 
     def __str__(self):
         return self.trcode
+
 
 class M_OPW00018(TR):
     trcode: str = "opw00018"

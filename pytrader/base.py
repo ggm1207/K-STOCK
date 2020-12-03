@@ -5,11 +5,10 @@ from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 from kiwoom.handler import Handler, Wait
 from kiwoom.method import (
     GetLoginInfo,
-    GetCommDataEx,
     GetMasterCodeName,
     SendOrder,
 )
-from kiwoom.transaction.opw import OPW00018, OPW00001
+from kiwoom.transaction.opw import OPW00018, OPW00001, M_OPW00018
 
 from config.config import password
 
@@ -115,12 +114,13 @@ class CurStatus(QGroupBox):
 
         with Wait(self.parent.block):
             Handler.run(
-                OPW00018,
+                M_OPW00018,
                 context,
                 keys=["종목명", "보유수량", "매입가", "현재가", "평가손익", "수익률(%)"],
             )
 
         datas = Handler.get(OPW00018)
+        print(datas)
 
 
 class EventList(QGroupBox):
