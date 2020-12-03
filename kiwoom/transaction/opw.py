@@ -71,13 +71,14 @@ class OPW00018(TR):
     @classmethod
     def get_values(cls, keys):
         if cls.multi:
+            print("multi!")
             data = GetCommDataEx(cls.trcode, cls.rcname)
             return data
 
         data = super().get_values(keys)
         data = list(map(lambda x: change_format(x), data))
         data[3] = (
-            float(eval(data[3] / 300))
+            float(eval(data[3] / 100))
             if Handler.kiwoom.server == 1
             else data[3]
         )
@@ -94,7 +95,7 @@ class OPW00018(TR):
 
         data = list(map(lambda x: change_format(x), data))
         data[3] = (
-            float(eval(data[3] / 300))
+            float(eval(data[3] / 100))
             if Handler.kiwoom.server == 1
             else data[3]
         )
