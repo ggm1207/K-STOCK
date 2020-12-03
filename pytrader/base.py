@@ -121,7 +121,7 @@ class CurStatus(QGroupBox):
                 keys=["종목명", "보유수량", "매입가", "현재가", "평가손익", "수익률(%)"],
             )
 
-        datas = Handler.get(OPW00018)
+        datas = Handler.get(M_OPW00018)
         col_list = ["종목명", "보유수량", "매입가", "현재가", "평가손익", "수익률(%)"]
         datas = pd.DataFrame(datas, columns=col_list)
         print("datas:", datas)
