@@ -167,8 +167,9 @@ def GetCommDataEx(sTrCode, strRecordName):
         - 배열로 반환 (파이썬에서는 아마 리스트?)
     """
     ret = Handler.dynamicCall(
-        "GetCommDataEx(QString, QString)", sTrCode, strRecordName
+        "GetCommDataEx(QString, QString)", sTrCode, strRecordName, "종목명"
     )
+    print(ret)
     return ret
 
 
