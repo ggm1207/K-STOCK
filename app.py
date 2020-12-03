@@ -52,6 +52,7 @@ class App(QMainWindow, UI):
         self, sScrNo, sRQName, sTrCode, sRecordName, sPrevNext, *args, **kwargs
     ):
         print("in event", sScrNo, sTrCode)
+        print(sRQName, sTrCode)
 
         if sTrCode.startswith("op"):
             Handler.get_values(sTrCode)
