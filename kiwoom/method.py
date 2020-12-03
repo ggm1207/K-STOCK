@@ -182,6 +182,6 @@ def GetRepeatCnt(sTrCode, sRecordName):
         repeat_cnt[int] - 레코드의 반복횟수
     """
     repeat_cnt = Handler.dynamicCall(
-        "GetRepeatCnt(QString, QString)", sTrCode, sRecordName
+        "GetRepeatCnt(QString, QIterable)", sTrCode, sRecordName
     )
     return int(repeat_cnt)
