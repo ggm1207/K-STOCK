@@ -12,12 +12,7 @@
 from copy import copy
 
 from kiwoom.handler import Handler
-from kiwoom.method import (
-    SetInputValues,
-    CommRqData,
-    GetCommData,
-    GetCommDataEx,
-)
+from kiwoom.method import SetInputValues, CommRqData, GetCommData, GetCommDataEx
 from kiwoom.transaction.utils import change_format
 
 
@@ -57,14 +52,18 @@ class TR:
             data.append(GetCommData(cls.trcode, cls.rcname, 0, key))
         return data
 
-    @classmethod
-    def get_multi_values(cls, keys):
-        data = GetCommDataEx(cls.trcode, cls.rcname)
-        print(data)
-        return data
-
     def __str__(self):
         return self.trcode
+
+class M_OPW00018(TR):
+    trcode: str = "opw00018"
+    rcname: str = "계좌평가잔고개별합산"
+    window: str = "2002"
+
+    @classmethod
+    def get_values(cls, keys):
+        data = GetCommDataEx(cls.trcode, cls.rcname)
+        return data
 
 
 class OPW00018(TR):
