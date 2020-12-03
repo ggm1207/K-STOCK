@@ -38,6 +38,7 @@ class TR:
     trcode: str = None
     rcname: str = None
     window: str = None
+    multi: bool = False
 
     @classmethod
     def run(cls, **kwargs):
@@ -61,24 +62,18 @@ class TR:
         return self.trcode
 
 
-class M_OPW00018(TR):
-    trcode: str = "opw00018"
-    rcname: str = "계좌평가잔고개별합산"
-    window: str = "2002"
-
-    @classmethod
-    def get_values(cls, keys):
-        data = GetCommDataEx(cls.trcode, cls.rcname)
-        return data
-
-
 class OPW00018(TR):
     trcode: str = "opw00018"
     rcname: str = "계좌평가잔고내역"
     window: str = "2000"
+    multi: bool = False
 
     @classmethod
     def get_values(cls, keys):
+        if cls.multi:
+            data = GetCommDataEx(cls.trcode, cls.rcname)
+            return data
+
         data = super().get_values(keys)
         data = list(map(lambda x: change_format(x), data))
         data[3] = (
@@ -111,6 +106,7 @@ class OPW00001(TR):
     trcode: str = "opw00001"
     rcname: str = "예수금상세현황요청"
     window: str = "2001"
+    multi: bool = False
 
     @classmethod
     def get_values(cls, keys):

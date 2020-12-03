@@ -46,25 +46,23 @@ class Handler(QAxWidget):
         cls.kiwoom = Kiwoom()
 
         for tr_sub_class in TR.__subclasses__():
-            cls.tr[tr_sub_class.window] = tr_sub_class
+            cls.tr[tr_sub_class.trcode] = tr_sub_class
 
     @classmethod
     def run(cls, tr_class, context: dict, keys: list):
         tr_class.run(**context)
-        cls.lock[tr_class.window] = False
-        cls.keys[tr_class.window] = keys
-        print(tr_class.window, ": run!")
+        cls.lock[tr_class.trcode] = False
+        cls.keys[tr_class.trcode] = keys
+        print(tr_class.trcode, ": run!")
 
     @classmethod
-    def get_values(cls, window):
-        temp = cls.tr[window].get_values(cls.keys[window])
-        print("window:", window)
-        print("temp:", temp)
-        # window = window.upper()
-        # temp = cls.tr[window].execute()
-        cls.db[window] = temp
-        cls.lock[window] = True
+    def get_values(cls, trcode):
+        temp = cls.tr[trcode].get_values(cls.keys[trcode])
+        # trcode = trcode.upper()
+        # temp = cls.tr[trcode].execute()
+        cls.db[trcode] = temp
+        cls.lock[trcode] = True
 
     @classmethod
     def get(cls, tr_class):
-        return cls.db[tr_class.window]
+        return cls.db[tr_class.trcode]
