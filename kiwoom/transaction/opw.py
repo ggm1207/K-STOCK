@@ -64,7 +64,7 @@ class TR:
 
 class OPW00018(TR):
     trcode: str = "opw00018"
-    rcname: str = "계좌평가잔고내역"
+    rcname: str = "계좌평가결과"
     window: str = "2000"
     multi: bool = False
 
@@ -72,7 +72,7 @@ class OPW00018(TR):
     def get_values(cls, keys):
         if cls.multi:
             print("multi!")
-            data = GetCommDataEx(cls.trcode, "계좌평가잔고개별합산")
+            data = GetCommDataEx(cls.trcode, "계좌평가잔고내역요청")
             return data
 
         data = super().get_values(keys)
@@ -82,24 +82,6 @@ class OPW00018(TR):
             if Handler.kiwoom.server == 1
             else data[3]
         )
-        return data
-
-    @staticmethod
-    def execute(keys):
-        data = list()
-        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총매입금액"))
-        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가금액"))
-        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총평가손익금액"))
-        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "총수익률(%)"))
-        data.append(GetCommData("opw00018", "계좌평가잔고내역", 0, "추정예탁자산"))
-
-        data = list(map(lambda x: change_format(x), data))
-        data[3] = (
-            float(eval(data[3] / 100))
-            if Handler.kiwoom.server == 1
-            else data[3]
-        )
-
         return data
 
 
@@ -113,11 +95,4 @@ class OPW00001(TR):
     def get_values(cls, keys):
         data = super().get_values(keys)
         data = list(map(change_format, data))
-        return data
-
-    @staticmethod
-    def execute():
-        data = list()
-        data.append(GetCommData("opw00001", "예수금상세현황요청", 0, "d+2추정예수금"))
-        data = list(map(lambda x: x.lstrip("0"), data))
         return data
