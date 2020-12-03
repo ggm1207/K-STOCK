@@ -69,6 +69,13 @@ class OPW00018(TR):
     multi: bool = False
 
     @classmethod
+    def run(cls, **kwargs):
+        if cls.multi:
+            cls.rcname = "계좌평가잔고내역요청"
+        SetInputValues(kwargs)
+        CommRqData(cls.rcname, cls.trcode, 0, cls.window)
+
+    @classmethod
     def get_values(cls, keys):
         if cls.multi:
             print("multi!")
