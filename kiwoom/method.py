@@ -167,9 +167,9 @@ def GetCommDataEx(sTrCode, strRecordName):
         - 배열로 반환 (파이썬에서는 아마 리스트?)
     """
     ret = Handler.dynamicCall(
-        "GetCommDataEx(QString, QString)", sTrCode, strRecordName
+        "GetCommDataEx(QString, QIterable)", sTrCode, strRecordName
     )
-    print('GetCommDataEx:', ret)
+    print(ret)
     return ret
 
 
@@ -182,6 +182,6 @@ def GetRepeatCnt(sTrCode, sRecordName):
         repeat_cnt[int] - 레코드의 반복횟수
     """
     repeat_cnt = Handler.dynamicCall(
-        "GetRepeatCnt(QString, QIterable)", sTrCode, sRecordName
+        "GetRepeatCnt(QString, QString)", sTrCode, sRecordName
     )
     return int(repeat_cnt)
