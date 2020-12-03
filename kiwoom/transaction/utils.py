@@ -4,7 +4,7 @@ def change_format(data):
     try:
         format_data = format(int(strip_data), ",d")
     except ValueError:
-        print(f"format_data: {format_data}")
+        print(f"strip_data: {strip_data}")
         format_data = format(int("0"), ",d")
 
     if data.startswith("-"):
