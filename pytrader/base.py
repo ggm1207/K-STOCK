@@ -117,9 +117,9 @@ class CurStatus(QGroupBox):
         col_list = ["종목명", "보유수량", "매입가", "현재가", "평가손익", "수익률(%)"]
 
         with Wait(self.parent.block):
-            OPW00018.window = "2002"
             Handler.run(OPW00018, context, keys=col_list)
 
+        M_OPW00018.window = "2000"
         datas = Handler.get(M_OPW00018)
         datas = pd.DataFrame(datas, columns=col_list)
         print("datas:", datas)
