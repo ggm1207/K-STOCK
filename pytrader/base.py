@@ -118,6 +118,7 @@ class CurStatus(QGroupBox):
 
         with Wait(self.parent.block):
             OPW00018.multi = True
+            OPW00018.window = "2002"
             Handler.run(OPW00018, context, keys=col_list)
 
         datas = Handler.get(OPW00018)
