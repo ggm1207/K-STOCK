@@ -54,7 +54,7 @@ class App(QMainWindow, UI):
         print("in event", sScrNo, sTrCode)
 
         if sTrCode.startswith("op"):
-            Handler.get_values(sTrCode)
+            Handler.get_values(sScrNo)
 
         if all(Handler.lock.values()):  # 그리 큰
             self.block.exit()  # TODO: 비동기에서는...?

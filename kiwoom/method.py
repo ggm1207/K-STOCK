@@ -169,7 +169,7 @@ def GetCommDataEx(sTrCode, strRecordName):
     ret = Handler.dynamicCall(
         "GetCommDataEx(QString, QString)", sTrCode, strRecordName
     )
-    print(ret)
+    print('GetCommDataEx:', ret)
     return ret
 
 
