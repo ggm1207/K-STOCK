@@ -73,7 +73,7 @@ class OPW00018(TR):
         SetInputValues(kwargs)
         if cls.multi:
             print("multi here!!")
-            CommRqData("계좌평가잔고내역요청", cls.trcode, 0, cls.window)
+            CommRqData("계좌평가잔고개별합산", cls.trcode, 0, cls.window)
             return
 
         CommRqData(cls.rcname, cls.trcode, 0, cls.window)
@@ -82,7 +82,7 @@ class OPW00018(TR):
     def get_values(cls, keys):
         if cls.multi:
             print("multi!")
-            data = GetCommDataEx(cls.trcode, "계좌평가잔고내역요청")
+            data = GetCommDataEx(cls.trcode, "계좌평가잔고개별합산")
             return data
 
         data = super().get_values(keys)
