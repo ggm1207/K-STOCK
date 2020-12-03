@@ -68,6 +68,7 @@ class M_OPW00018(TR):
 
     @classmethod
     def get_values(cls, keys):
+        print("M_OPW00018 Started!!")
         data = GetCommDataEx(cls.trcode, cls.rcname)
         return data
 
