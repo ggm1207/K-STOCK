@@ -167,7 +167,9 @@ def GetCommDataEx(sTrCode, strRecordName):
         - 배열로 반환 (파이썬에서는 아마 리스트?)
     """
     print(sTrCode, strRecordName)
-    ret = Handler.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", sTrCode, strRecordName)
+    ret = Handler.kiwoom.dynamicCall(
+        "GetCommDataEx(QString, QString)", sTrCode, strRecordName
+    )
     print("GetCommDataEx:", ret)
     return ret
 
@@ -180,7 +182,7 @@ def GetRepeatCnt(sTrCode, sRecordName):
     Returns:
         repeat_cnt[int] - 레코드의 반복횟수
     """
-    repeat_cnt = Handler.dynamicCall(
+    repeat_cnt = Handler.kiwoom.dynamicCall(
         "GetRepeatCnt(QString, QString)", sTrCode, sRecordName
     )
     return int(repeat_cnt)

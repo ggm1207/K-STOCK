@@ -88,7 +88,7 @@ class OPW00018(TR):
             data = GetCommDataEx(cls.trcode, "계좌평가잔고개별합산")
             return data
 
-        # print(GetRepeatCnt(cls.trcode, cls.rcname))
+        print(GetRepeatCnt(cls.trcode, cls.rcname))
         data = super().get_values(keys)
         data = list(map(lambda x: change_format(x), data))
         data[3] = (
