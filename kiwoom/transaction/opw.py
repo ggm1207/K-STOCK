@@ -69,18 +69,7 @@ class OPW00018(TR):
     multi: bool = False
 
     @classmethod
-    def run(cls, **kwargs):
-        SetInputValues(kwargs)
-        if cls.multi:
-            print("multi here!!")
-            CommRqData("계좌평가잔고개별합산", cls.trcode, 0, cls.window)
-            return
-
-        CommRqData(cls.rcname, cls.trcode, 0, cls.window)
-
-    @classmethod
     def get_values(cls, keys):
-
         if cls.multi:
             count = GetRepeatCnt(cls.trcode, cls.rcname)
             data = list()
@@ -106,6 +95,6 @@ class OPW00001(TR):
 
     @classmethod
     def get_values(cls, keys):
-        data = super().get_values(keys)
+        data = super().get_values(0, keys)
         data = list(map(change_format, data))
         return data
