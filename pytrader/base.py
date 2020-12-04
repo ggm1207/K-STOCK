@@ -101,6 +101,8 @@ class CurStatus(QGroupBox):
             item.setTextAlignment(Qt.AlignVCenter | Qt.AlignCenter)
             table.setItem(0, i, item)
 
+        table.resizeRowsToContents()
+
     def _stock_setting(self):
         """ 내가 가지고 있는 주식 종목 들 """
         account = self.parent.mo_accounts.currentText()
@@ -123,6 +125,16 @@ class CurStatus(QGroupBox):
 
         datas = Handler.get(OPW00018)
         print("datas:", datas)
+        table = self.parent.stockTable
+
+        for j, row in enumerate(datas):
+            for i in range(len(row)):
+                item = QTableWidgetItem(row[i])
+                item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
+                table.setItem(j, i, item)
+
+        table.resizeRowsToContents()
+
         datas = pd.DataFrame(datas, columns=col_list)
 
 
