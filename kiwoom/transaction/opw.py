@@ -52,10 +52,10 @@ class TR:
         return temp
 
     @classmethod
-    def get_values(cls, keys):
+    def get_values(cls, nIndex, keys):
         data = list()
         for key in keys:
-            data.append(GetCommData(cls.trcode, cls.rcname, 0, key))
+            data.append(GetCommData(cls.trcode, cls.rcname, nIndex, key))
         return data
 
     def __str__(self):
@@ -84,11 +84,11 @@ class OPW00018(TR):
         if cls.multi:
             count = GetRepeatCnt(cls.trcode, cls.rcname)
             data = list()
-            for _ in range(count):
-                data.append(super().get_values(keys))
+            for i in range(count):
+                data.append(super().get_values(i, keys))
             return data
 
-        data = super().get_values(keys)
+        data = super().get_values(0, keys)
         data = list(map(lambda x: change_format(x), data))
         data[3] = (
             float(eval(data[3] / 100))
