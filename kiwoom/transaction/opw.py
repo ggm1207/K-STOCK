@@ -16,8 +16,7 @@ from kiwoom.method import (
     SetInputValues,
     CommRqData,
     GetCommData,
-    GetCommDataEx,
-    GetRepeatCnt
+    GetRepeatCnt,
 )
 from kiwoom.transaction.utils import change_format
 
@@ -83,12 +82,12 @@ class OPW00018(TR):
     def get_values(cls, keys):
 
         if cls.multi:
-            print("multi!")
-            print(GetRepeatCnt(cls.trcode, cls.rcname))
-            data = GetCommDataEx(cls.trcode, "계좌평가잔고개별합산")
+            count = GetRepeatCnt(cls.trcode, cls.rcname)
+            data = list()
+            for _ in range(count):
+                data.append(super().get_values(keys))
             return data
 
-        print(GetRepeatCnt(cls.trcode, cls.rcname))
         data = super().get_values(keys)
         data = list(map(lambda x: change_format(x), data))
         data[3] = (
