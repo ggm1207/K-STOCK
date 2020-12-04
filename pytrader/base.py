@@ -122,13 +122,14 @@ class CurStatus(QGroupBox):
             Handler.run(OPW00018, context, keys=col_list)
 
         datas = Handler.get(OPW00018)
-        print("datas:", datas)
         table = self.parent.stockTable
+        cnt = len(datas)
 
-        for j, row in enumerate(datas):
-            for i in range(len(row)):
-                print(row[i])
-                item = QTableWidgetItem(row[i])
+        table.setRowCount(cnt)
+
+        for j in range(cnt):
+            for i in range(len(datas[0])):
+                item = QTableWidgetItem(datas[j][i])
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
                 table.setItem(j, i, item)
 
