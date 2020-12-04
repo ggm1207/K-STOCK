@@ -2,8 +2,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGroupBox, QTableWidgetItem
 
-import pandas as pd
-
 from kiwoom.handler import Handler, Wait
 from kiwoom.method import (
     GetLoginInfo,
@@ -129,13 +127,12 @@ class CurStatus(QGroupBox):
 
         for j, row in enumerate(datas):
             for i in range(len(row)):
+                print(row[i])
                 item = QTableWidgetItem(row[i])
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
                 table.setItem(j, i, item)
 
         table.resizeRowsToContents()
-
-        datas = pd.DataFrame(datas, columns=col_list)
 
 
 class EventList(QGroupBox):
