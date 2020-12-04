@@ -18,7 +18,6 @@ from kiwoom.method import (
     GetCommData,
     GetRepeatCnt,
 )
-from kiwoom.transaction.utils import change_format
 
 
 # Transaction 순서
@@ -57,15 +56,15 @@ class TR:
         for key in keys:
             ret = GetCommData(cls.trcode, cls.rcname, nIndex, key)
 
-            if ret[0] == "-":
+            if "." in ret:
+                ret = str(float(ret)) + "%"
+            elif ret[0] == "-":
                 if ret[1:].isdecimal():
                     ret = str(int(ret))
             elif ret.isdecimal():
                 ret = str(int(ret))
-            elif "." in ret:
-                ret = str(float(ret))
             data.append(ret)
-            
+
         return data
 
     def __str__(self):
