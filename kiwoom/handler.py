@@ -58,8 +58,6 @@ class Handler(QAxWidget):
     @classmethod
     def get_values(cls, trcode):
         temp = cls.tr[trcode].get_values(cls.keys[trcode])
-        # trcode = trcode.upper()
-        # temp = cls.tr[trcode].execute()
         cls.db[trcode] = temp
         cls.lock[trcode] = True
 
