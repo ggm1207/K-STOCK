@@ -86,10 +86,11 @@ class OPW00018(TR):
 
         data = super().get_values(0, keys)
         data = list(map(lambda x: change_format(x), data))
+        print("모의 수익률:", data[3])
         data[3] = (
-            float(eval(data[3] / 100))
+            data[3]
             if Handler.kiwoom.server == 1
-            else data[3]
+            else float(eval(data[3] / 100))
         )
         return data
 
