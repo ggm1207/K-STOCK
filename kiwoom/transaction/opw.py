@@ -62,7 +62,10 @@ class TR:
                     ret = str(int(ret))
             elif ret.isdecimal():
                 ret = str(int(ret))
+            elif "." in ret:
+                ret = str(float(ret))
             data.append(ret)
+            
         return data
 
     def __str__(self):
@@ -85,12 +88,6 @@ class OPW00018(TR):
             return data
 
         data = super().get_values(0, keys)
-        print("모의 수익률:", data[3])
-        data[3] = (
-            data[3]
-            if Handler.kiwoom.server == 1
-            else float(eval(data[3] / 100))
-        )
         return data
 
 
