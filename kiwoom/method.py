@@ -166,11 +166,9 @@ def GetCommDataEx(sTrCode, strRecordName):
     Returns:
         - 배열로 반환 (파이썬에서는 아마 리스트?)
     """
-    print(sTrCode, strRecordName)
     ret = Handler.kiwoom.dynamicCall(
         "GetCommDataEx(QString, QString)", sTrCode, strRecordName
     )
-    print("GetCommDataEx:", ret)
     return ret
 
 

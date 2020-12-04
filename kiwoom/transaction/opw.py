@@ -55,7 +55,14 @@ class TR:
     def get_values(cls, nIndex, keys):
         data = list()
         for key in keys:
-            data.append(GetCommData(cls.trcode, cls.rcname, nIndex, key))
+            ret = GetCommData(cls.trcode, cls.rcname, nIndex, key)
+
+            if ret[0] == "-":
+                if ret[1:].isdecimal():
+                    ret = str(int(ret))
+            elif ret.isdecimal():
+                ret = str(int(ret))
+            data.append(ret)
         return data
 
     def __str__(self):
