@@ -85,7 +85,6 @@ class OPW00018(TR):
             return data
 
         data = super().get_values(0, keys)
-        data = list(map(lambda x: change_format(x), data))
         print("모의 수익률:", data[3])
         data[3] = (
             data[3]
@@ -104,5 +103,4 @@ class OPW00001(TR):
     @classmethod
     def get_values(cls, keys):
         data = super().get_values(0, keys)
-        data = list(map(change_format, data))
         return data
